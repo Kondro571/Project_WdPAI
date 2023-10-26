@@ -1,28 +1,52 @@
 
 body {
-      background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(171, 76, 76, 0.2729),rgba(150, 90, 90, 0));
+    background-image: linear-gradient(rgba(0, 0, 0, 1), rgba(171, 76, 76, 0.2729),rgba(150, 90, 90, 0));
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+.login-container {
+    text-align: center;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
 h1 {
-    color: red;
+    font-size: 24px;
 }
-p {
-    color: blue;
+input[type="text"], input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
-input{
-    height: 96px;
-    width: 435px;
+button {
+    width: 100%;
+    padding: 10px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
-#email{
-    margin: 158px auto 0 auto;
+button:hover {
+    background-color: #0056b3;
 }
-#password{
-  
-    margin: 46px auto 0 auto;
+.create-account-button {
+    margin-top: 10px;
 }
-div{
-    margin: auto;
-    text-align: center;
-    width: 550px;
-    height: 1024px;
+.google-login-button {
+    background-color: #fff;
+    color: #000;
+    border: 1px solid #ccc;
+    margin-top: 10px;
 }
-
+.google-login-button:hover {
+    background-color: #f2f2f2;
+}
