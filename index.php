@@ -1,11 +1,11 @@
 <?php
-require "Routing.php"
+require "Routing.php";
 
 
 
-$path = trim($_REQUEST["REQUEST_URI",'/']);
-$path = parse_url($path, PHP_URL_PATH)
+$path = trim($_SERVER['REQUEST_URI'],'/');
+$path = parse_url($path, PHP_URL_PATH);
 
-Routing::get('index','DefaultController')
-Routing::get('project','DefaultController')
-Routing:::run($path)
+Routing::get('login','DefaultController');
+Routing::get('project','DefaultController');
+Routing::run($path);

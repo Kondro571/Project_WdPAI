@@ -1,13 +1,15 @@
 <?php
 
-require_once "AppControler.php"
+require_once "AppController.php";
 class DefaultController extends AppController{
 
-    public function index(){
-        die("tak index")
+    public function login(){
+        $this-> render("login");
     }
+
     public function project(){
-        die("tak project")
+        $this-> render("project");
+
     }
     
 }
