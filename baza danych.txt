@@ -1,0 +1,95 @@
+-- Tworzenie tabeli 'uzytkownik'
+CREATE TABLE uzytkownik (
+    id SERIAL PRIMARY KEY,
+    imie VARCHAR(20),
+    nazwisko VARCHAR(30),
+    email VARCHAR(50) UNIQUE,
+    haslo VARCHAR(50),
+    poprzednie_haslo VARCHAR(50)
+);
+
+-- Tworzenie tabeli 'zamowienia'
+CREATE TABLE zamowienia (
+    id SERIAL PRIMARY KEY,
+    data_ DATE,
+    uzytkownik_id INT,
+    miejscowosc VARCHAR(60),
+    ulica VARCHAR(60),
+    kod_pocztowy VARCHAR(6),
+    data_platnosci DATE,
+    kwota NUMERIC,
+    status_ VARCHAR(20),
+    FOREIGN KEY (uzytkownik_id) REFERENCES uzytkownik(id)
+);
+
+-- Tworzenie tabeli 'kategoria'
+CREATE TABLE kategoria (
+    id SERIAL PRIMARY KEY,
+    nazwa VARCHAR(50) UNIQUE,
+    opis VARCHAR(50)
+);
+
+CREATE TABLE podkategoria (
+    id SERIAL PRIMARY KEY,
+    nazwa VARCHAR(50),
+    kategoria_id INT,
+    FOREIGN KEY (kategoria_id) REFERENCES kategoria(id)
+);
+
+-- Tworzenie tabeli 'zdjecia_produktow'
+CREATE TABLE zdjecia_produktow (
+    id SERIAL PRIMARY KEY,
+    sciezka_do_zdjecia VARCHAR(255),
+    opis VARCHAR(255)
+);
+
+-- Tworzenie tabeli 'produkty'
+CREATE TABLE produkty (
+    id SERIAL PRIMARY KEY,
+	nazwa VARCHAR(70),
+    producent VARCHAR(50),
+    cena NUMERIC,
+    kategoria_id INT,
+    ilosc INTEGER,
+    zdjecie_id INT,
+    FOREIGN KEY (kategoria_id) REFERENCES kategoria(id),
+    FOREIGN KEY (zdjecie_id) REFERENCES zdjecia_produktow(id)
+);
+
+-- Tworzenie tabeli 'zeszyty'
+CREATE TABLE zeszyty (
+    id SERIAL PRIMARY KEY,
+    rodzaj VARCHAR(20),
+    ilosc_kartek INTEGER,
+    rozmiar VARCHAR(20),
+    produkt_id INT,
+    FOREIGN KEY (produkt_id) REFERENCES produkty(id)
+);
+
+-- Tworzenie tabeli 'dlugopisu'
+CREATE TABLE dlugopisu (
+    id SERIAL PRIMARY KEY,
+    kolor VARCHAR(20),
+    produkt_id INT,
+    FOREIGN KEY (produkt_id) REFERENCES produkty(id)
+);
+
+-- Tworzenie tabeli 'szczegoly_zamowien'
+CREATE TABLE szczegoly_zamowien (
+    id SERIAL PRIMARY KEY,
+    zamowienie_id INT,
+    produkt_id INT,
+    ilosc INT,
+    FOREIGN KEY (zamowienie_id) REFERENCES zamowienia(id),
+    FOREIGN KEY (produkt_id) REFERENCES produkty(id)
+);
+
+-- Tworzenie tabeli 'szcegoly_uzytkowinka'
+CREATE TABLE szcegoly_uzytkowinka (
+    uzytkownik_id INT,
+    miejscowosc VARCHAR(60),
+    ulica VARCHAR(60),
+    kod_pocztowy VARCHAR(6),
+    poprzednie_haslo VARCHAR(30),
+    FOREIGN KEY (uzytkownik_id) REFERENCES uzytkownik(id)
+);

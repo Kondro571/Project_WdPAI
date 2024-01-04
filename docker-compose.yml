@@ -22,6 +22,8 @@ services:
       - .:/app/
     networks:
       - wdpai-network
+    depends_on:
+    - db
 
   db:
     container_name: pg_container
