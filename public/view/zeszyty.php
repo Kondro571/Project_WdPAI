@@ -46,22 +46,25 @@
 
     <div>
     <div class="display">
-    <?php foreach ($produkty as $produkt):?>
+    <?php foreach ($produkty as $zabawka):?>
         <div class="product">
             <div class="product-img">
-                <img src="<?php echo $produkt->getImages();?>" alt="<?php echo $produkt->getName();?>">
+                <img src="<?php echo $zabawka->getImages();?>" alt="<?php echo $zabawka->getName();?>">
+                <?php foreach ($zabawka->getImages() as $z):?>
+                        <p><?php echo $z ?></p>
+                                    <?php endforeach;?>
             </div>
             <div class="product-info">
-                <h3><?php echo $produkt->getName();?></h3>
-                <p><?php echo $produkt->getProducer();?></p>
-                <p><?php echo $produkt->getPrice();?></p>
-                <p><?php echo $produkt->getQuantity();?></p>
+                <h3><?php echo $zabawka->getName();?></h3>
+                <p><?php echo $zabawka->getProducer();?></p>
+                <p><?php echo $zabawka->getPrice();?></p>
+                <p><?php echo $zabawka->getQuantity();?></p>
             </div>
         </div>
 
 
 
-        <?php endforeach; ?>
+        <?php endforeach;?>
     </div>
 
     </body>

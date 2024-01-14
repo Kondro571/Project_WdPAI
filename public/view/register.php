@@ -32,12 +32,13 @@
                 <button type="submit">Stwórz konto</button>
             
                 
-                <a href="login">
-                <button type="submit" class="create-account-button" >zaloguj się</button>
-                </a>
+               
               
                
             </form>
+            <a href="login" class="create-account-button">
+            zaloguj się
+            </a>
         </div>
         
 

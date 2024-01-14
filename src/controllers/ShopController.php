@@ -14,10 +14,15 @@ class ShopController extends AppController {
         $this->shopRepository = new ShopRepository();
     }
     public function zabawki(){
-        $products = $this->shopRepository->getToys();
-        $this-> render("zabawki",["zabawki" => $products]);
+        $products = $this->shopRepository->getToys("zabawka");
+        $this-> render("zabawki",["produkty" => $products]);
 
     }
+    public function zeszyty(){
+        
+        $products = $this->shopRepository->getNotebooks();
+        $this-> render("zeszyty",["produkty" => $products]);
 
+    }
 
 }

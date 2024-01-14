@@ -61,7 +61,7 @@ class SecurityController extends AppController{
     
         // Twórz nowego użytkownika i dodaj do bazy danych
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        $user = new User($email, $hashedPassword, "imie", "nazwisko");
+        $user = new User($email, $hashedPassword, 0);
         $userRepository->addUser($user);
     
         return $this->render('register', ['messages' => ['Udało się zarejestrować pomyślnie']]);

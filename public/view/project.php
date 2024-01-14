@@ -26,7 +26,7 @@
                         <li>Podkategoria 1.3</li>
                     </ul>
                 </li>
-                  
+                <li><a href="zeszyty"> zeszyty</a> </li>
                 <li>papiernicze</li>
                 <li>inne</li>
             </ul>

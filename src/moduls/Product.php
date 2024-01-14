@@ -7,7 +7,7 @@ class Product {
     protected $producer;
     protected $price;
     protected $quantity;
-    protected $images;
+    protected $images =[];
 
     function __construct($id, $name, $producer, $price, $quantity, $images) {
         $this->id = $id;
@@ -41,4 +41,9 @@ class Product {
     public function getImages() {
         return $this->images;
     }
+
+    public function addPhoto($photo) {
+        $this->images[] = $photo;
+    }
 }
+

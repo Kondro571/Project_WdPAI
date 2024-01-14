@@ -37,7 +37,7 @@ services:
       - "5432:5432"
     networks:
       - wdpai-network
-
+        
   pgadmin:
     container_name: pgadmin4_container
     image: dpage/pgadmin4

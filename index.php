@@ -11,6 +11,9 @@ Routing::get('project','DefaultController');
 Routing::post('login','SecurityController');
 Routing::post('register','SecurityController');
 Routing::post('zabawki','ShopController');
+Routing::post('zeszyty','ShopController');
+Routing::post('dlugopisy','ShopController');
+
 #Routing::post('addProject','ProjectController');
 
 Routing::run($path);
