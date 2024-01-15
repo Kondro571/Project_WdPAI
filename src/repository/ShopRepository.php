@@ -95,6 +95,7 @@ class ShopRepository extends Repository {
                 zeszyty z ON p.id = z.produkt_id
             LEFT JOIN
                 zdjecia_produktow zd ON p.id = zd.produkt_id
+            WHERE z.id IS NOT NULL
         ');
     
         $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -158,6 +159,7 @@ class ShopRepository extends Repository {
                 dlugopisy d ON p.id = d.produkt_id
             LEFT JOIN
                 zdjecia_produktow zd ON p.id = zd.produkt_id
+            WHERE d.id IS NOT NULL
         ');
     
         $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);

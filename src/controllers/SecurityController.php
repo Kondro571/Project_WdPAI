@@ -22,16 +22,23 @@ class SecurityController extends AppController{
         $email = $_POST['email'];
         $password = $_POST['password'];
         $user = $this->userRepository->getUser($email);
-    
+        
+        $messages=[];
         if (!$user) {
-            return $this->render('login', ['messages' => ['User with this email does not exist']]);
+            $messages[]='User with this email does not exist';
+        }else if (!password_verify($password, $user->getPassword())) {
+            $messages[]='Incorrect password';
+            
         }
-    
-        // Użyj password_verify do porównania podanego hasła z zapisanym w bazie danych
-        if (!password_verify($password, $user->getPassword())) {
-            return $this->render('login', ['messages' => ['Incorrect password']]);
+        if(!empty($messages)){
+            return $this->render('login', ['messages'=> $messages]);
         }
-    
+
+        $_SESSION['user_ID'] = $user->getId();
+        $_SESSION['user_name'] = $user->getName();
+        $_SESSION['user_surname'] = $user->getSurname();
+        $_SESSION['user_email'] = $user->getEmail();
+        $_SESSION['user_type'] = $user->isAdmin();
         // Tutaj masz pewność, że e-mail i hasło są poprawne
         $url = "http://$_SERVER[HTTP_HOST]";
         header("Location:{$url}/project");
@@ -64,8 +71,16 @@ class SecurityController extends AppController{
         $user = new User($email, $hashedPassword, 0);
         $userRepository->addUser($user);
     
-        return $this->render('register', ['messages' => ['Udało się zarejestrować pomyślnie']]);
+        return $this->render('login', ['messages' => ['Udało się zarejestrować pomyślnie']]);
     }
     
+    public function logout()
+    {
+        session_unset();
+        session_destroy();
+        
+
+        header("Location: /login"); 
+    }
 
 }

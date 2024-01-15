@@ -16,7 +16,7 @@
         <div class="login-container">
 
             <h1>Zaloguj się</h1>
-            <form action="login" method="POST">
+            <form action="register" method="POST">
                 <div class="messages">
                     <?php if(isset($messages)){
                         foreach($messages as $message){
@@ -27,16 +27,20 @@
                 </div>
                 <input type="email" placeholder="Email" name="email" required>
                 <input type="password" placeholder="Hasło" name="password" required>
-                <button type="submit" class="confirm-button">zaloguj się</button>
-            
-                <a href="login">Zresetuj hasło</a>
+                <input type="password" placeholder="Hasło" name="repeat_password" required>
 
-                <a href="register" class="create-account-button">
-                Stwórz nowe konto
-                </a>
+                <button type="submit" class="confirm-button">Stwórz konto</button>
+            
+                
+               
               
                
             </form>
+            <a class="login-return"> Masz już konto 
+            <a href="login">
+            zaloguj się
+            </a>
+            </a>
         </div>
         
 

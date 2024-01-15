@@ -25,4 +25,11 @@ class ShopController extends AppController {
 
     }
 
+    public function dlugopisy(){
+        
+        $products = $this->shopRepository->getPens();
+        $this-> render("dlugopisy",["produkty" => $products]);
+
+    }
+
 }

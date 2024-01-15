@@ -9,22 +9,29 @@ class User
     private $phone;
     private $city;
     private $adress;
-    private $zipCode;
+    private $postCode;
     private $admin;
+    private $id;
 
 
-    public function __construct(string $email,string $password, bool $admin, string $name="",string $surname="",string $phone="",string $city="",string $adress="",string $zip=""){
+
+
+    public function __construct(string $email,string $password, bool $admin,int $id=0,string $name="",string $surname="",string $phone="",string $city="",string $adress="",string $zip=""){
         $this->email = $email;
         $this->password = $password;
         $this->admin = $admin;
+        $this->id = $id;
         $this->name = $name;
         $this->surname = $surname;
         $this->phone = $phone;
         $this->city = $city;
         $this->adress = $adress;
-        $this->zipCode = $zip;
+        $this->postCode = $zip;
     }
 
+    public function getId() : int{
+        return $this->id;
+    }
     public function getEmail(){
         return $this->email;
     }
@@ -51,10 +58,13 @@ class User
     public function getAdress(){
         return $this->adress;
     }
-    public function getZipCode(){
-        return $this->zipCode;
+    public function getPostCode(){
+        return $this->postCode;
     }
 
+    public function setId(int $id){
+        $this->id = $id;
+    }
     public function setEmail(string $email){
         $this->email = $email;
     }
@@ -76,8 +86,8 @@ class User
     public function setAdress(string $adress){
         $this->adress = $adress;
     }
-    public function setZipCode(string $zip){
-        $this->zipCode = $zip;
+    public function setPostCode(string $code){
+        $this->postCode = $code;
     }
 
 

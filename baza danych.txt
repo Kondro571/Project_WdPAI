@@ -1,7 +1,7 @@
 -- Tworzenie tabeli 'uzytkownik'
 CREATE TABLE uzytkownik (
     id SERIAL PRIMARY KEY,
-    email VARCHAR(50) UNIQUE,
+    email VARCHAR(50) unique CHECK (email LIKE '%@%'),,
     haslo VARCHAR(50),
     poprzednie_haslo VARCHAR(50)
     admin boolean
@@ -14,7 +14,7 @@ CREATE TABLE zamowienia (
     uzytkownik_id INT,
     miejscowosc VARCHAR(60),
     ulica VARCHAR(60),
-    kod_pocztowy VARCHAR(6),
+    kod_pocztowy VARCHAR(6) CHECK(postal_code LIKE'^[0-9]{2}-[0-9]{3}$') not null,
     data_platnosci DATE,
     kwota NUMERIC,
     status_ VARCHAR(20),
