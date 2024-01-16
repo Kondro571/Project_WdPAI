@@ -204,39 +204,13 @@ color:rgb(0, 0, 0);
 
 /* --------right icons--------------------------- */
 
-.top-bar {
-    color: #fff;
-    padding: 10px;
-}
-
 .icons {
     display: flex;
-    justify-content: space-between;
-    
     align-items: center;
     padding: 10px;
     text-align: center;
 
 }
-
-.user-menu {
-    position: relative;
-}
-
-.user-menu .logout-btn {
-    display: none;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
-}
-
-.user-menu:hover .logout-btn {
-    display: block;
-}
-
 .icons img{
     width: 57px;
     height: 57px;
@@ -246,7 +220,7 @@ color:rgb(0, 0, 0);
     flex-direction: column;
     color: #fff;
     text-decoration: none;
-    padding: 5px;
+    margin: 5px;
     padding-left: 10px;
     
 }
@@ -254,7 +228,63 @@ color:rgb(0, 0, 0);
     margin-top: 5px;
     text-transform: uppercase;
 }
+/* -ol-- */
 
+.icons ol {
+    display: flex;
+    margin-right: auto;
+    padding-left: 20px;
+    list-style-type:none;
+    padding:0;
+    margin:0;
+    text-align:center;
+}
+
+.icons ol > li {
+    float:left;
+    width:120px;
+    margin-left:1px;
+
+
+}
+.icons ol a {
+    display:block;
+    text-decoration:none;
+    color:#ffffff;
+    padding:0 5px;
+
+}
+.icons ol > li:first-child {
+    margin-left:0;
+}
+
+.icons ol > li:hover > ul {
+    display:block;
+}
+/* -li-- */
+.icons ol > li > ul {
+    display:none;
+    list-style-type:none;
+    padding:0;
+    margin:0;
+    border: 5px solid black;
+    border-radius: 10;
+}
+    
+
+.icons  ol > li > ul > li {
+  
+    background-color:#000000;
+    
+
+}
+
+.icons ol > li > ul > li:hover {
+    background-color:#ffffff;
+}
+.icons ol > li > ul > li > a:hover {
+    color: #000;
+}
 /* -----search bar----------------------------------------- */
 .search-bar{
     display: flex;
@@ -296,10 +326,10 @@ color:rgb(0, 0, 0);
         display: block;
     }
 
-    .category ol{
-        position:fixed;
-        margin-top: 30px;
-
+    
+    .category ol {
+        display: none; /* Ukryj menu na początku */
+        flex-direction: column; /* Zmień układ na kolumnowy na mniejszych ekranach */
     }
 
     .category .mobile-icon {
@@ -313,7 +343,7 @@ color:rgb(0, 0, 0);
     }
 
     .category ol > li:hover {
-        background-color: #333; /* Usuń tło dla elementów menu po najechaniu */
+        background-color: transparent; /* Usuń tło dla elementów menu po najechaniu */
     }
 
     .category ol > li:hover > ul {
