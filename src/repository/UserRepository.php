@@ -17,22 +17,22 @@ class UserRepository extends Repository {
         return new User(
             $user["email"],
             $user["haslo"],
-            $user["imie"],
-            $user["nazwisko"]
+            $user["isadmin"],
+            $user["id"],
         );
     }
 
     public function addUser(User $user): void {
         $stat = $this->database->connect()->prepare('
-        INSERT INTO uzytkownik (imie, nazwisko, email, haslo, poprzednie_haslo)
-        VALUES (?,?,?,?,?);
+        INSERT INTO uzytkownik (email, haslo, poprzednie_haslo, isadmin)
+        VALUES (?,?,?,?);
         ');
+        $isadmin= $user->isAdmin() ? 1:0;
         $stat->execute([
-            $user->getName(),
-            $user->getSurname(),
             $user->getEmail(),
             $user->getPassword(),
-            $user->getPassword()
+            $user->getPassword(),
+            $isadmin,
         ]);
 
     }

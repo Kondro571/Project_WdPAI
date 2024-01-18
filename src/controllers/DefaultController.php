@@ -11,5 +11,13 @@ class DefaultController extends AppController{
         $this-> render("project");
 
     }
+    public function profil(){
+        $this-> render("profil");
+
+    }
+    public function edytuj_profil(){
+        $this-> render("edytuj_profil");
+
+    }
     
 }

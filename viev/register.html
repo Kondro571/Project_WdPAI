@@ -1,0 +1,49 @@
+
+<html>
+    <head>
+    <title>Tak</title>
+        <meta charset="utf-8">
+        <meta name="description" content="My bisness">
+        <meta name="author" content="Konrad Tatomir">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
+        
+    </head>
+    <body>
+        <div class="logo"><a href="project"><img name="google_icon" src="img/logo2.png"></a></div>
+        
+        <div class="login-container">
+
+            <h1>Zaloguj się</h1>
+            <form action="register" method="POST">
+                <div class="messages">
+                    <?php if(isset($messages)){
+                        foreach($messages as $message){
+                            echo $message;
+                        }
+                    }
+                    ?>
+                </div>
+                <input type="email" placeholder="Email" name="email" required>
+                <input type="password" placeholder="Hasło" name="password" required>
+                <input type="password" placeholder="Hasło" name="repeat_password" required>
+
+                <button type="submit" class="confirm-button">Stwórz konto</button>
+            
+                
+               
+              
+               
+            </form>
+            <a class="login-return"> Masz już konto 
+            <a href="login">
+            zaloguj się
+            </a>
+            </a>
+        </div>
+        
+
+
+    </body>
+</html>

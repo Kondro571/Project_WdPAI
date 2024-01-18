@@ -6,25 +6,34 @@
         <meta name="description" content="My bisness">
         <meta name="author" content="Konrad Tatomir">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="style.css">
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
+        <link rel="stylesheet" href="css/style.css">
+        <link rel="icon" type="image/x-icon" href="img/favicon.ico">
         
     </head>
     <body>
-        <div class="logo"><img name="google_icon" src="logo2.png"></div>
+        <div class="logo"><a href="project"><img name="google_icon" src="img/logo2.png"></a></div>
         
         <div class="login-container">
 
             <h1>Zaloguj się</h1>
-            <form>
+            <form action="login" method="POST">
+                <div class="messages">
+                    <?php if(isset($messages)){
+                        foreach($messages as $message){
+                            echo $message;
+                        }
+                    }
+                    ?>
+                </div>
                 <input type="email" placeholder="Email" name="email" required>
                 <input type="password" placeholder="Hasło" name="password" required>
-                <button type="submit">zaloguj się</button>
+                <button type="submit" class="confirm-button">zaloguj się</button>
             
-                <a href="login.html">zresetuj hasło</a>
-               
-                <button class="create-account-button">Stwórz nowe konto</button>
-                
+                <a href="login">Zresetuj hasło</a>
+
+                <a href="register" class="create-account-button">
+                Stwórz nowe konto
+                </a>
               
                
             </form>

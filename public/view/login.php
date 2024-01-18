@@ -27,7 +27,7 @@
                 </div>
                 <input type="email" placeholder="Email" name="email" required>
                 <input type="password" placeholder="Hasło" name="password" required>
-                <button type="submit">zaloguj się</button>
+                <button type="submit" class="confirm-button">zaloguj się</button>
             
                 <a href="login">zresetuj hasło</a>
 

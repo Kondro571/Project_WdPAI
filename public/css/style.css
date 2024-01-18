@@ -3,6 +3,7 @@
     width: 90%;
     margin-left: 20px;
 }
+
 .logo img{
     height: 90px;
 }
@@ -16,12 +17,14 @@
     margin-top: 70;
     height: 500px;
 }
+
 form {
     display: flex;
     flex-direction: column;
     justify-content: center;
     text-align: center;
 }
+
 h1 {
     color: #3C2F2F;
     text-align: center;
@@ -32,6 +35,7 @@ h1 {
     font-weight: 400;
     line-height: normal;
     }
+
 input[type="email"], input[type="password"] {
     font-size: 17px;
     height:55px;
@@ -45,7 +49,12 @@ input[type="email"], input[type="password"] {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-button {
+a{
+    color: #000;
+    font-size: 15px;
+    margin:3px;
+}
+.confirm-button {
     height:35px;
     border-radius: 2px;
     margin: 10px;
@@ -56,25 +65,44 @@ button {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
-h3{
-    color: #000;
-    font-family: Inter;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-}
-
-
-
 .create-account-button {
-    height:35px;
+    width: 250px;
+    height: 35px;
     border-radius: 2px;
     margin: 10px;
-    margin-inline:30px;
-    font-size:18px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-    border-radius: 2px;
+    margin-inline: 30px;
     background: #000;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     color: white;
+    font-size: 18px;
+    text-decoration: none;
+}
+
+.create-account-button:hover{
+    color: white;
+}
+
+.login-return{
+    font-size: 15px;
+
+}
+.login-return:hover{
+    color: #000;
+}
+@media only screen and (max-width: 500px) {
+
+    h1{
+        text-align: left;
+        font-weight: bolder;
+        padding-left: 30px;
+    }
+
+    .logo{
+        border: none;
+        text-align: center;
+    }
+
 }

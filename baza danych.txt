@@ -1,11 +1,21 @@
 -- Tworzenie tabeli 'uzytkownik'
 CREATE TABLE uzytkownik (
     id SERIAL PRIMARY KEY,
-    imie VARCHAR(20),
-    nazwisko VARCHAR(30),
-    email VARCHAR(50) UNIQUE,
+    email VARCHAR(50) unique CHECK (email LIKE '%@%'),,
     haslo VARCHAR(50),
     poprzednie_haslo VARCHAR(50)
+    admin boolean
+);
+-- Tworzenie tabeli 'szcegoly_uzytkowinka'
+CREATE TABLE szcegoly_uzytkowinka (
+    uzytkownik_id INT,
+    imie VARCHAR(20),
+    nazwisko VARCHAR(30),
+    miejscowosc VARCHAR(60),
+    ulica VARCHAR(60),
+    kod_pocztowy VARCHAR(6),
+    poprzednie_haslo VARCHAR(30),
+    FOREIGN KEY (uzytkownik_id) REFERENCES uzytkownik(id)
 );
 
 -- Tworzenie tabeli 'zamowienia'
@@ -15,7 +25,7 @@ CREATE TABLE zamowienia (
     uzytkownik_id INT,
     miejscowosc VARCHAR(60),
     ulica VARCHAR(60),
-    kod_pocztowy VARCHAR(6),
+    kod_pocztowy VARCHAR(6) CHECK(postal_code LIKE'^[0-9]{2}-[0-9]{3}$') not null,
     data_platnosci DATE,
     kwota NUMERIC,
     status_ VARCHAR(20),
@@ -25,9 +35,15 @@ CREATE TABLE zamowienia (
 -- Tworzenie tabeli 'kategoria'
 CREATE TABLE kategoria (
     id SERIAL PRIMARY KEY,
-    nazwa VARCHAR(50) UNIQUE,
-    opis VARCHAR(50)
+    nazwa VARCHAR(50),
+    pogkategoria VARCHAR(50),
+    opis VARCHAR(50),
+    UNIQUE(nazwa)
 );
+
+
+
+
 
 CREATE TABLE podkategoria (
     id SERIAL PRIMARY KEY,
@@ -40,7 +56,9 @@ CREATE TABLE podkategoria (
 CREATE TABLE zdjecia_produktow (
     id SERIAL PRIMARY KEY,
     sciezka_do_zdjecia VARCHAR(255),
-    opis VARCHAR(255)
+    opis VARCHAR(255),
+    produkt_id INT,
+    FOREIGN KEY (produkt_id) REFERENCES produkty(id)
 );
 
 -- Tworzenie tabeli 'produkty'
@@ -51,9 +69,7 @@ CREATE TABLE produkty (
     cena NUMERIC,
     kategoria_id INT,
     ilosc INTEGER,
-    zdjecie_id INT,
-    FOREIGN KEY (kategoria_id) REFERENCES kategoria(id),
-    FOREIGN KEY (zdjecie_id) REFERENCES zdjecia_produktow(id)
+    FOREIGN KEY (kategoria_id) REFERENCES kategoria(id)
 );
 
 -- Tworzenie tabeli 'zeszyty'
@@ -67,7 +83,7 @@ CREATE TABLE zeszyty (
 );
 
 -- Tworzenie tabeli 'dlugopisu'
-CREATE TABLE dlugopisu (
+CREATE TABLE dlugopisy (
     id SERIAL PRIMARY KEY,
     kolor VARCHAR(20),
     produkt_id INT,
@@ -84,12 +100,30 @@ CREATE TABLE szczegoly_zamowien (
     FOREIGN KEY (produkt_id) REFERENCES produkty(id)
 );
 
--- Tworzenie tabeli 'szcegoly_uzytkowinka'
-CREATE TABLE szcegoly_uzytkowinka (
-    uzytkownik_id INT,
-    miejscowosc VARCHAR(60),
-    ulica VARCHAR(60),
-    kod_pocztowy VARCHAR(6),
-    poprzednie_haslo VARCHAR(30),
-    FOREIGN KEY (uzytkownik_id) REFERENCES uzytkownik(id)
+
+
+--kategorieeeeeeeeee---------------------------
+CREATE TABLE produkty_kategorie (
+    produkt_id INT,
+    kategoria_id INT,
+    PRIMARY KEY (produkt_id, kategoria_id),
+    FOREIGN KEY (produkt_id) REFERENCES produkty(id),
+    FOREIGN KEY (kategoria_id) REFERENCES kategoria(id)
 );
+
+CREATE TABLE koszyk (
+    id SERIAL PRIMARY KEY,
+    uzytkownik_id INT,
+    produkt_id INT,
+    ilosc INTEGER,
+    FOREIGN KEY (uzytkownik_id) REFERENCES uzytkownik(id),
+    FOREIGN KEY (produkt_id) REFERENCES produkty(id)
+);
+
+SELECT constraint_name 
+FROM information_schema.constraint_column_usage 
+WHERE table_name = 'kategoria' AND column_name = 'nazwa';
+
+
+SELECT * FROM pg_indexes WHERE tablename = 'kategoria' AND indexname = 'kategoria_nazwa_key';
+ALTER TABLE kategoria DROP CONSTRAINT kategoria_nazwa_key;

@@ -29,15 +29,16 @@
                 <input type="password" placeholder="Hasło" name="password" required>
                 <input type="password" placeholder="Hasło" name="repeat_password" required>
 
-                <button type="submit">Stwórz konto</button>
+                <button type="submit"  class="confirm-button">Stwórz konto</button>
             
                 
-                <a href="login">
-                <button type="submit" class="create-account-button" >zaloguj się</button>
-                </a>
+               
               
                
             </form>
+            <a href="login" class="create-account-button">
+            zaloguj się
+            </a>
         </div>
         
 
