@@ -14,7 +14,7 @@ class ShopController extends AppController {
         $this->shopRepository = new ShopRepository();
     }
     public function zabawki(){
-        $products = $this->shopRepository->getToys("zabawka");
+        $products = $this->shopRepository->getProduct("zabawka");
         $this-> render("zabawki",["produkty" => $products]);
 
     }
@@ -34,23 +34,8 @@ class ShopController extends AppController {
 
     }
 
-    public function koszyk(){
-        
-        $this-> render("koszyk");
 
-    }
 
-    public function add_to_cart(){
-        if (isset($_POST['productId']) && isset($_POST['quantity'])) {
-            // Odczytaj przesyłane wartości
-            $productId = $_POST['productId'];
-            $quantity = $_POST['quantity'];
-            print($productId);
-            print($quantity);
-            
 
-        }
-        print("aaa");
-    }
 
 }

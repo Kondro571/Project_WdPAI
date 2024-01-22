@@ -15,6 +15,7 @@ CREATE TABLE szcegoly_uzytkowinka (
     ulica VARCHAR(60),
     kod_pocztowy VARCHAR(6),
     poprzednie_haslo VARCHAR(30),
+    telefon int,
     FOREIGN KEY (uzytkownik_id) REFERENCES uzytkownik(id)
 );
 

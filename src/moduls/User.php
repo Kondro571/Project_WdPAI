@@ -4,32 +4,18 @@ class User
 {
     private $email;
     private $password;
-    private $name;
-    private $surname;
-    private $phone;
-    private $city;
-    private $street;
-    private $number;
 
-    private $postCode;
     private $admin;
     private $id;
 
 
 
 
-    public function __construct(string $email,string $password, bool $admin,int $id=0,string $name="",string $surname="",string $phone="",string $city="",string $street="",int $number ,string $zip=""){
+    public function __construct(string $email,string $password, bool $admin,int $id=0){
         $this->email = $email;
         $this->password = $password;
         $this->admin = $admin;
         $this->id = $id;
-        $this->name = $name;
-        $this->surname = $surname;
-        $this->phone = $phone;
-        $this->city = $city;
-        $this->street = $street;
-        $this->number = $number;
-        $this->postCode = $zip;
     }
 
     public function getId() : int{
@@ -46,6 +32,48 @@ class User
         return $this->admin;
     }
     
+   
+    public function setId(int $id){
+        $this->id = $id;
+    }
+    public function setEmail(string $email){
+        $this->email = $email;
+    }
+    public function setPassword(string $password){
+        $this->password = $password;
+    }
+
+
+
+}
+
+class UserInfo{
+
+    private $name;
+    private $surname;
+    private $phone;
+    private $city;
+    private $street;
+    private $number;
+    private $postCode;
+    private $id;
+
+
+    public function __construct(int $id,string $name="",string $surname="",string $phone="",string $city="",string $street="",int $number =0,string $zip=""){
+        $this->id = $id;
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->phone = $phone;
+        $this->city = $city;
+        $this->street = $street;
+        $this->number = $number;
+        $this->postCode = $zip;
+    }
+
+    public function getId() : int{
+        return $this->id;
+    }
+
     public function getName(){
         return $this->name;
     }
@@ -68,15 +96,10 @@ class User
         return $this->postCode;
     }
 
-    public function setId(int $id){
-        $this->id = $id;
-    }
-    public function setEmail(string $email){
-        $this->email = $email;
-    }
-    public function setPassword(string $password){
-        $this->password = $password;
-    }
+
+
+
+
     public function setName(string $name){
         $this->name = $name;
     }
@@ -98,6 +121,4 @@ class User
     public function setPostCode(string $code){
         $this->postCode = $code;
     }
-
-
 }

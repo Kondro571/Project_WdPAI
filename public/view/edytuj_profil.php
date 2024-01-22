@@ -79,40 +79,44 @@
     <main>
         <h1>Edytuj Profil</h1>
         <div class="edit-data">
-            <form action="edytuj_profil.php" method="post">
+            
+            <form action="edytuj_profil" method="post">
+            <?php foreach ($info as $user): ?>
+
                 <!-- Dane osobowe -->
                 <div class="personal-info">
                     <label for="imie">Imię:</label>
-                    <input type="text" name="imie" placeholder="Imię" value="<?php echo $user_data['imie']; ?>" required><br>
+                    <input type="text" name="imie" placeholder="Imię" value="<?php echo $user->getName(); ?>" required><br>
         
                     <label for="nazwisko">Nazwisko:</label>
-                    <input type="text" name="nazwisko" placeholder="Nazwisko" value="<?php echo $user_data['nazwisko']; ?>" required><br>
+                    <input type="text" name="nazwisko" placeholder="Nazwisko" value="<?php echo $user->getSurname(); ?>" required><br>
         
                     <label for="email">Email:</label>
-                    <input type="text" name="email" placeholder="Email" value="<?php echo $user_data['email']; ?>" required><br>
+                    <input type="text" name="email" placeholder="Email" value="<?php echo $_SESSION["user_email"]; ?>" required><br>
                     
                     <label for="telefon">Telefon:</label>
-                    <input type="text" name="telefon" placeholder="Telefon" value="<?php echo $user_data['telefon']; ?>" required><br>
+                    <input type="text" name="telefon" placeholder="Telefon" value="<?php echo $user->getPhone(); ?>" required><br>
         
                 </div>
         
                 <div class="address-info">
                     <label for="miasto">Miasto:</label>
-                    <input type="text" name="miasto" placeholder="Miasto" value="<?php echo $user_data['miasto']; ?>" required><br>
+                    <input type="text" name="miasto" placeholder="Miasto" value="<?php echo $user->getCity(); ?>" required><br>
                     
                     <label for="ulica">Ulica:</label>
-                    <input type="text" name="ulica" placeholder="Ulica" value="<?php echo $user_data['ulica']; ?>" required><br>
+                    <input type="text" name="ulica" placeholder="Ulica" value="<?php echo $user->getStreet(); ?>" required><br>
                     
                     <label for="numer">Nr domu/mieszkania:</label>
-                    <input type="number" name="numer" placeholder="Nr" value="<?php echo $user_data['numer']; ?>" required><br>
+                    <input type="number" name="numer" placeholder="Nr" value="<?php echo $user->getNumber(); ?>" required><br>
                     
                     <label for="kod_pocztowy">Kod pocztowy:</label>
-                    <input type="text" name="kod_pocztowy" placeholder="Kod pocztowy" value="<?php echo $user_data['kod_pocztowy']; ?>" required><br>
+                    <input type="text" name="kod_pocztowy" placeholder="Kod pocztowy" value="<?php echo $user->getPostCode(); ?>" required><br>
                     
                 </div>
         
                 
                 <input type="submit" value="Zapisz Zmiany">
+            <?php endforeach;?>
             </form>
         </div>
         

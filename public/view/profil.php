@@ -78,12 +78,13 @@
         <h1>Profil Użytkownika</h1>
 
         <div class="user-info">
+            <?php foreach ($info as $user): ?>
             <div class="row">
                 <div class="info-header">
-                    <h3>Imię i nazwisko</h3>
+                    <h3>Imię i Nazwisko</h3>
                 </div>
                 <div class="user-data">
-                    Kenneth Valdez
+                <?php echo $user->getName() ,$user->getSurname() ?>
                 </div>
             </div>
       
@@ -92,7 +93,7 @@
                     <h3>Email</h3>
                 </div>
                 <div class="user-data">
-                    fip@jukmuh.al
+                    <?php echo $_SESSION["user_email"]?>
                 </div>
             </div>
             <div class="row">
@@ -100,7 +101,7 @@
                     <h3>Nr. telefonu</h3>
                 </div>
                 <div class="user-data">
-                    (239) 816-9029
+                    <?php echo $user->getPhone()?>
                 </div>
             </div>
   
@@ -109,12 +110,13 @@
                     <h3>Adres</h3>
                 </div>
                 <div class="user-data">
-                    Bay Area, San Francisco, CA
+                    <?php echo $user->getCity() ,$user->getStreet(), $user->getNumber(), $user->getPostCode()?>
                 </div>
             </div>
             <div class="edit">
                 <a class="edit-link" target="__blank" href="edytuj_profil.html">Edytuj dane</a>
             </div>
+            <?php endforeach;?>
         </div>
 
     </main>

@@ -36,17 +36,108 @@ class UserRepository extends Repository {
         ]);
 
     }
-    public function getUserDetailsId(User $user): int
+    public function getUserDetailsId(int $id)
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM uzytkownik WHERE imie = :name AND nazwisko = :surname AND eamil = :email
+            SELECT * FROM szcegoly_uzytkowinka WHERE uzytkownik_id = :id
         ');
-        $stmt->bindParam(':name', $user->getName(), PDO::PARAM_STR);
-        $stmt->bindParam(':surname', $user->getSurname(), PDO::PARAM_STR);
-        $stmt->bindParam(':phone', $user->getEmail(), PDO::PARAM_STR);
+        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
         $stmt->execute();
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
-        return $data['id'];
+        if ($data == false) {
+            return null;
+        }
+        
+        return new UserInfo(
+            $data['id'],
+            $data['imie'],
+            $data['nazwisko'],
+            $data['telefon'],
+            $data['miasto'],
+            $data['ulica'],
+            $data['nr_domu'],
+            $data['kod_pocztowy'],
+        );
+
     }
+   
+
+    public function updateUser(int $userId, array $info) {
+            $updateQuery = "UPDATE uzytkownik
+                SET email = :email,
+                WHERE id = :user_id";
+
+        $stmt = $this->database->connect()->prepare($updateQuery);
+
+        $stmt->bindParam(':email', $info['email']);
+        $stmt->bindParam(':user_id', $userId);
+
+        $stmt->execute();
+
+        $existingDetails = $this->getUserDetailsId($userId);
+    
+        if ($existingDetails) {
+            $this->updateExistingDetails($userId, $info);
+        } else {
+            $this->createNewDetails($userId, $info);
+        }
+    }
+
+    private function updateExistingDetails(int $userId, array $info) {
+        // Tutaj dodaj kod aktualizacji szczegółów użytkownika w bazie danych
+
+            // Przygotuj zapytanie UPDATE
+            $updateQuery = "UPDATE szczegoly_uzytkownika 
+                            SET imie = :name, 
+                                nazwisko = :surname, 
+                                telefon = :phone, 
+                                miasto = :city, 
+                                ulica = :street, 
+                                numer = :number, 
+                                kod_pocztowy = :postcode 
+                            WHERE uzytkownik_id = :user_id";
+
+            // Utwórz przygotowane zapytanie
+            $stmt = $this->database->connect()->prepare($updateQuery);
+
+            // Bindeuj parametry
+            $stmt->bindParam(':email', $info['email']);
+            $stmt->bindParam(':name', $info['name']);
+            $stmt->bindParam(':surname', $info['surname']);
+            $stmt->bindParam(':phone', $info['phone']);
+            $stmt->bindParam(':city', $info['city']);
+            $stmt->bindParam(':street', $info['street']);
+            $stmt->bindParam(':number', $info['number']);
+            $stmt->bindParam(':postcode', $info['postcode']);
+            $stmt->bindParam(':user_id', $userId);
+
+            // Wykonaj zapytanie
+            $stmt->execute();
+    }
+    
+    private function createNewDetails(int $userId, array $info) {
+        try {
+            $query = "INSERT INTO tabela_szczegoly_uzytkownika (uzytkownik_id, email, imie, nazwisko, telefon, miasto, ulica, numer, kod_pocztowy)
+                      VALUES (:user_id, :email, :imie, :nazwisko, :telefon, :miasto, :ulica, :numer, :kod_pocztowy)";
+    
+            $stmt = $this->database->connect()->prepare($query);
+    
+            $stmt->bindParam(':user_id', $userId);
+            $stmt->bindParam(':email', $info['email']);
+            $stmt->bindParam(':imie', $info['imie']);
+            $stmt->bindParam(':nazwisko', $info['nazwisko']);
+            $stmt->bindParam(':telefon', $info['telefon']);
+            $stmt->bindParam(':miasto', $info['miasto']);
+            $stmt->bindParam(':ulica', $info['ulica']);
+            $stmt->bindParam(':numer', $info['numer']);
+            $stmt->bindParam(':kod_pocztowy', $info['kod_pocztowy']);
+    
+            $stmt->execute();
+        } catch (PDOException $e) {
+            echo "Błąd przy dodawaniu szczegółów użytkownika do bazy danych: " . $e->getMessage();
+        }
+    }
+
+    
 }

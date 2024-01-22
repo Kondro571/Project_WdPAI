@@ -16,11 +16,11 @@ Routing::post('logout','SecurityController');
 Routing::post('zabawki','ShopController');
 Routing::post('zeszyty','ShopController');
 Routing::post('dlugopisy','ShopController');
-Routing::post('koszyk','ShopController');
-Routing::post('add_to_cart','ShopController');
+Routing::post('koszyk','CarController');
+Routing::post('add_to_cart','CarController');
 
-Routing::post('profil','DefaultController');
-Routing::post('edytuj_profil','DefaultController');
+Routing::post('profil','ProfilController');
+Routing::post('edytuj_profil','ProfilController');
 
 
 

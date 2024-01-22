@@ -33,25 +33,24 @@ $(document).ready(function () {
     $(".add-to-cart-button").on("click", function () {
         var productId = $(this).data("product-id");
         var quantity = $(this).siblings(".quantity-control").find(".quantity-input").val();
-        // Tutaj możesz wywołać funkcję lub AJAX, aby dodać produkt do koszyka z określoną ilością
-        // Przykład: addToCart(productId, quantity);
+
         addToCart(productId, quantity);
         console.log("Dodano do koszyka: Produkt ID = " + productId + ", Ilość = " + quantity);
     });
-
+    //fetched api
     function addToCart(productId, quantity) {   
 
-        // Użyj AJAX do przekazania danych do serwera (PHP)
+        
         $.ajax({
             type: "POST",
-            url: "add_to_cart", // Plik PHP obsługujący dodawanie do koszyka
+            url: "add_to_cart",
             data: {
                 productId: productId,
                 quantity: quantity
             },
             success: function (response) {
                 console.log(response);
-                // Możesz dodać dodatkowe działania po udanym dodaniu do koszyka
+                
             },
             error: function (error) {
                 console.error(error);
@@ -59,6 +58,31 @@ $(document).ready(function () {
         });
     }
 
+    // Nowa funkcja z Fetch API
+    function addToCartFetch(productId, quantity) {
+        fetch('add_to_cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: productId,
+                quantity: quantity
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    }
 
 
     $(".product-container .product-img").hover(

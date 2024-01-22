@@ -58,12 +58,27 @@
                         <span class="info-text">Koszyk</span>
                     </a>
                     <div class="user-menu">
-                        <a href="login">
+                        <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) { 
+                                
+                                $link = "profil";
+                        
+                            } else {
+
+                                $link = "login";
+                            }
+
+                        ?>
+                        <a href="<?php echo $link?>">
                             <img src="public/img/user.png" alt="Użytkownik" height="50">
                             <span class="info-text">Konto</span>
                         </a>
-                        <a href="#" class="conto-btn btn1">Admin staf</a>
+                        <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {?>
+                            <?php if($_SESSION['isAdmin']) {?>
+                                <a href="#" class="conto-btn btn1">Admin staf</a>
+                            <?php }?>
                         <a href="logout" class="conto-btn btn2">Wyloguj się</a>
+                        
+                        <?php }?>
                     </div>
                 </div>
             </div>
@@ -98,7 +113,11 @@
                             <button id="b" class="quantity-button minus" data-product-id="<?php echo $productId; ?>">-</button>
                             <input type="number" class="quantity-input" value="1" min="1" max="<?php echo $produkt->getQuantity(); ?>" data-product-id="<?php echo $productId; ?>">
                             <button id="b" class="quantity-button plus" data-product-id="<?php echo $productId; ?>">+</button>
-                            <button class="add-to-cart-button" data-product-id="<?php echo $productId; ?>">Dodaj do koszyka</button>
+                            <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {?>
+                                <button class="add-to-cart-button" data-product-id="<?php echo $productId; ?>">Dodaj do koszyka</button>
+                            <?php }else{?>
+                                <button class="login-first" href="login">Zaloguj sie aby dodać do koszyka</button>
+                            <?php }?>
 
                         </div>
                 </div>

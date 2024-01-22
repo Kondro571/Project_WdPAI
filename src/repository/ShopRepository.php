@@ -9,7 +9,7 @@ require_once __DIR__.'/../moduls/Notebook.php';
 class ShopRepository extends Repository {
 
     
-    public function getToys($category,$subCatehory="") :array{
+    public function getProduct($category,$subCatehory="") :array{
         $stmt = $this->database->connect()->prepare('
                 SELECT 
                 p.id, 
