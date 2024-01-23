@@ -10,7 +10,7 @@
         <link rel="icon" type="image/x-icon" href="public/img/favicon.ico">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <script src="public/js/js1.js"></script>
+        <script src="public/js/shop.js"></script>
 
     </head>
     <body>
@@ -58,7 +58,9 @@
                         <span class="info-text">Koszyk</span>
                     </a>
                     <div class="user-menu">
-                        <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) { 
+                        <?php 
+                        echo $_SESSION['aaa'];
+                        if($_SESSION['loggedin'] == true) { 
                                 
                                 $link = "profil";
                         
@@ -72,11 +74,13 @@
                             <img src="public/img/user.png" alt="Użytkownik" height="50">
                             <span class="info-text">Konto</span>
                         </a>
-                        <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {?>
+                        <?php if($_SESSION['loggedin'] == true) {?>
                             <?php if($_SESSION['isAdmin']) {?>
                                 <a href="#" class="conto-btn btn1">Admin staf</a>
-                            <?php }?>
-                        <a href="logout" class="conto-btn btn2">Wyloguj się</a>
+                                <a href="logout" class="conto-btn btn2">Wyloguj się</a>
+                            <?php }else{?>
+                                <a href="logout" class="conto-btn btn1">Wyloguj się</a>
+                                <?php } ?>
                         
                         <?php }?>
                     </div>
@@ -90,7 +94,8 @@
     <div class="product-container">
 
 
-            <?php foreach ($produkty as $produkt):?>
+            <?php echo count($produkty);
+            foreach ($produkty as $produkt):?>
             <div class="product">
                 <div class="product-img">
                     
@@ -110,11 +115,11 @@
                         <p><?php echo $produkt->getPrice(); ?> zł/szt</p>
 
                         <div class="quantity-control">
-                            <button id="b" class="quantity-button minus" data-product-id="<?php echo $productId; ?>">-</button>
-                            <input type="number" class="quantity-input" value="1" min="1" max="<?php echo $produkt->getQuantity(); ?>" data-product-id="<?php echo $productId; ?>">
-                            <button id="b" class="quantity-button plus" data-product-id="<?php echo $productId; ?>">+</button>
+                            <button id="b" class="quantity-button minus" data-product-id="<?php echo $produkt->getId(); ?>">-</button>
+                            <input type="number" class="quantity-input" data-product-id="<?php echo $produkt->getId(); ?>" value="1" min="1" max="<?php echo $produkt->getQuantity(); ?>">
+                            <button id="b" class="quantity-button plus" data-product-id="<?php echo $produkt->getId(); ?>">+</button>
                             <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {?>
-                                <button class="add-to-cart-button" data-product-id="<?php echo $productId; ?>">Dodaj do koszyka</button>
+                                <button class="add-to-cart-button" data-product-id="<?php echo $produkt->getId(); ?>">Dodaj do koszyka</button>
                             <?php }else{?>
                                 <button class="login-first" href="login">Zaloguj sie aby dodać do koszyka</button>
                             <?php }?>

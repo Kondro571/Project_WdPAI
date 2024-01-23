@@ -11,7 +11,7 @@ class ShopRepository extends Repository {
     
     public function getProduct($category,$subCatehory="") :array{
         $stmt = $this->database->connect()->prepare('
-                SELECT 
+            SELECT 
                 p.id, 
                 p.nazwa, 
                 p.producent, 
@@ -35,21 +35,21 @@ class ShopRepository extends Repository {
         $stmt->execute();
 
         $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
         $products = [];
         foreach ($productsData as $productData) {
             $productId = $productData['id'];
-        
+
             // Sprawdź, czy produkt już istnieje w tablicy $products
             $existingProduct = null;
-            foreach ($products as $existingProduct) {
-                if ($existingProduct->getId() == $productId) {
+            for ($i = 0; $i < count($products); $i++) {
+                if ($products[$i]->getId() == $productId) {
+                    $existingProduct = $products[$i];
                     break;
                 }
             }
-        
-            // Jeśli produkt nie istnieje, dodaj nowy produkt do tablicy $products
+            
             if (!$existingProduct) {
+
                 $existingProduct = new Product(
                     $productData['id'],
                     $productData['nazwa'],
@@ -58,7 +58,8 @@ class ShopRepository extends Repository {
                     $productData['ilosc'],
                     []
                 );
-                $products[] = $existingProduct;
+
+                array_push($products,$existingProduct);
             }
         
             // Dodaj ścieżkę do zdjęcia do odpowiedniego produktu
@@ -73,7 +74,7 @@ class ShopRepository extends Repository {
             //     $existingProduct->addPhoto($photo);
             // }
         }
-        
+
         return $products;
         
 
@@ -110,8 +111,9 @@ class ShopRepository extends Repository {
 
             // Sprawdź, czy produkt już istnieje w tablicy $products
             $existingProduct = null;
-            foreach ($notebooks as $existingProduct) {
-                if ($existingProduct->getId() == $productId) {
+         for ($i = 0; $i < count($notebooks); $i++) {
+                if ($notebooks[$i]->getId() == $productId) {
+                    $existingProduct = $notebooks[$i];
                     break;
                 }
             }
@@ -174,8 +176,9 @@ class ShopRepository extends Repository {
 
             // Sprawdź, czy produkt już istnieje w tablicy $products
             $existingProduct = null;
-            foreach ($pens as $existingProduct) {
-                if ($existingProduct->getId() == $productId) {
+            for ($i = 0; $i < count($pens); $i++) {
+                if ($pens[$i]->getId() == $productId) {
+                    $existingProduct = $pens[$i];
                     break;
                 }
             }

@@ -39,25 +39,43 @@ class UserRepository extends Repository {
     public function getUserDetailsId(int $id)
     {
         $stmt = $this->database->connect()->prepare('
-            SELECT * FROM szcegoly_uzytkowinka WHERE uzytkownik_id = :id
+            SELECT * FROM szcegoly_uzytkownika WHERE uzytkownik_id = :id
         ');
         $stmt->bindParam(':id', $id, PDO::PARAM_STR);
         $stmt->execute();
 
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         if ($data == false) {
-            return null;
+            return new UserInfo($id);
         }
         
         return new UserInfo(
-            $data['id'],
+            $id,
             $data['imie'],
             $data['nazwisko'],
             $data['telefon'],
             $data['miasto'],
             $data['ulica'],
-            $data['nr_domu'],
+            $data['numer'],
             $data['kod_pocztowy'],
+        );
+
+    }
+    public function ifExist(int $id)
+    {
+        $stmt = $this->database->connect()->prepare('
+            SELECT * FROM szcegoly_uzytkownika WHERE uzytkownik_id = :id
+        ');
+        $stmt->bindParam(':id', $id, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($data == false) {
+            return Null;
+        }
+        
+        return new UserInfo(
+            $id,
         );
 
     }
@@ -65,7 +83,7 @@ class UserRepository extends Repository {
 
     public function updateUser(int $userId, array $info) {
             $updateQuery = "UPDATE uzytkownik
-                SET email = :email,
+                SET email = :email
                 WHERE id = :user_id";
 
         $stmt = $this->database->connect()->prepare($updateQuery);
@@ -75,7 +93,7 @@ class UserRepository extends Repository {
 
         $stmt->execute();
 
-        $existingDetails = $this->getUserDetailsId($userId);
+        $existingDetails = $this->ifExist($userId);
     
         if ($existingDetails) {
             $this->updateExistingDetails($userId, $info);
@@ -88,7 +106,7 @@ class UserRepository extends Repository {
         // Tutaj dodaj kod aktualizacji szczegółów użytkownika w bazie danych
 
             // Przygotuj zapytanie UPDATE
-            $updateQuery = "UPDATE szczegoly_uzytkownika 
+            $updateQuery = "UPDATE szcegoly_uzytkownika 
                             SET imie = :name, 
                                 nazwisko = :surname, 
                                 telefon = :phone, 
@@ -102,7 +120,6 @@ class UserRepository extends Repository {
             $stmt = $this->database->connect()->prepare($updateQuery);
 
             // Bindeuj parametry
-            $stmt->bindParam(':email', $info['email']);
             $stmt->bindParam(':name', $info['name']);
             $stmt->bindParam(':surname', $info['surname']);
             $stmt->bindParam(':phone', $info['phone']);
@@ -118,13 +135,13 @@ class UserRepository extends Repository {
     
     private function createNewDetails(int $userId, array $info) {
         try {
-            $query = "INSERT INTO tabela_szczegoly_uzytkownika (uzytkownik_id, email, imie, nazwisko, telefon, miasto, ulica, numer, kod_pocztowy)
-                      VALUES (:user_id, :email, :imie, :nazwisko, :telefon, :miasto, :ulica, :numer, :kod_pocztowy)";
+            $query = "INSERT INTO szcegoly_uzytkownika (uzytkownik_id ,imie, nazwisko, telefon, miasto, ulica, numer, kod_pocztowy)
+                      VALUES (:user_id, :imie, :nazwisko, :telefon, :miasto, :ulica, :numer, :kod_pocztowy)";
     
             $stmt = $this->database->connect()->prepare($query);
     
             $stmt->bindParam(':user_id', $userId);
-            $stmt->bindParam(':email', $info['email']);
+     
             $stmt->bindParam(':imie', $info['imie']);
             $stmt->bindParam(':nazwisko', $info['nazwisko']);
             $stmt->bindParam(':telefon', $info['telefon']);

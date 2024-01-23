@@ -7,14 +7,15 @@ CREATE TABLE uzytkownik (
     admin boolean
 );
 -- Tworzenie tabeli 'szcegoly_uzytkowinka'
-CREATE TABLE szcegoly_uzytkowinka (
+CREATE TABLE szcegoly_uzytkownika (
+    id SERIAL PRIMARY KEY,
     uzytkownik_id INT,
     imie VARCHAR(20),
     nazwisko VARCHAR(30),
-    miejscowosc VARCHAR(60),
+    miasto VARCHAR(60),
     ulica VARCHAR(60),
+    numer int,
     kod_pocztowy VARCHAR(6),
-    poprzednie_haslo VARCHAR(30),
     telefon int,
     FOREIGN KEY (uzytkownik_id) REFERENCES uzytkownik(id)
 );

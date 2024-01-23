@@ -32,17 +32,16 @@ $(document).ready(function () {
     
     $(".add-to-cart-button").on("click", function () {
         var productId = $(this).data("product-id");
-        var quantityInput = $(this).siblings(".quantity-control").find(".quantity-input");
-        console.log("cos"+quantityInput);
-        var quantity = quantityInput.prop('value');
+        var quantityInput = $(this).closest(".quantity-control").find(".quantity-input");
+        console.log("coss" + quantityInput);
+        var quantity = quantityInput.val();
         console.log(quantity);
+        
 
-        // Tutaj możesz wywołać funkcję lub AJAX, aby dodać produkt do koszyka z określoną ilością
-        // Przykład: addToCart(productId, quantity);
         addToCartFetch(productId, quantity);
         console.log("Dodano do koszyka: Produkt ID = " + productId + ", Ilość = " + quantity);
+        
     });
-    //fetched api
     function addToCart(productId, quantity) {   
 
         
@@ -79,10 +78,34 @@ $(document).ready(function () {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json();
+    
+            // Sprawdź status HTTP 200, a resztę obsłużesz jako pustą odpowiedź
+            if (response.status === 200) {
+                console.log('Dodano do koszyka: Produkt ID = ' + productId + ', Ilość = ' + quantity);
+            }
         })
-        .then(data => {
-            console.log(data);
+        .catch(error => {
+            console.error('There was a problem with the fetch operation:', error);
+        });
+    }
+    function addToCartFetch2(productId, quantity) {
+        fetch('/add_to_cart', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                productId: productId,
+                quantity: quantity
+            })
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+                if (response.status === 200) {
+                console.log('Dodano do koszyka: Produkt ID = ' + productId + ', Ilość = ' + quantity);
+            }
         })
         .catch(error => {
             console.error('There was a problem with the fetch operation:', error);

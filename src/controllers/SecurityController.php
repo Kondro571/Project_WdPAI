@@ -33,14 +33,15 @@ class SecurityController extends AppController{
         if(!empty($messages)){
             return $this->render('login', ['messages'=> $messages]);
         }
-        $_SESSION['logged'] = True;
+        $_SESSION['loggedin'] = True;
+        
         $_SESSION['user_ID'] = $user->getId();
         $_SESSION['user_email'] = $user->getEmail();
         $_SESSION['isAdmin'] = $user->isAdmin();
         // Tutaj masz pewność, że e-mail i hasło są poprawne
-        $url = "http://$_SERVER[HTTP_HOST]";
-        header("Location:{$url}/project");
-        #return $this->render('project');
+        #$url = "http://$_SERVER[HTTP_HOST]";
+        #header("Location:{$url}/project");
+        return $this->render('project');
     }
     
     public function register() {

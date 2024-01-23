@@ -78,7 +78,7 @@
         <h1>Profil Użytkownika</h1>
 
         <div class="user-info">
-            <?php foreach ($info as $user): ?>
+            <?php if(isset($user)){ ?>
             <div class="row">
                 <div class="info-header">
                     <h3>Imię i Nazwisko</h3>
@@ -114,9 +114,9 @@
                 </div>
             </div>
             <div class="edit">
-                <a class="edit-link" target="__blank" href="edytuj_profil.html">Edytuj dane</a>
+                <a class="edit-link" target="__blank" href="edytuj_profil">Edytuj dane</a>
             </div>
-            <?php endforeach;?>
+            <?php }?>
         </div>
 
     </main>

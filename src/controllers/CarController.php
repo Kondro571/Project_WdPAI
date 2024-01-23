@@ -21,17 +21,24 @@ class CarController extends AppController {
     }
 
     public function add_to_cart(){
-        if (isset($_POST['productId']) && isset($_POST['quantity'])) {
-            // Odczytaj przesyłane wartości
-            $productId = $_POST['productId'];
-            $quantity = $_POST['quantity'];
-            $this->carRepository->addToCart($_SESSION["user_ID"],$productId,$quantity);
-            print($productId);
-            print($quantity);
-            
 
+        $contentType = isset($_SERVER["CONTENT_TYPE"]) ? trim($_SERVER["CONTENT_TYPE"]) : '';
+
+        if ($contentType === "application/json") {
+
+            $content = trim(file_get_contents("php://input"));
+            $decoded = json_decode($content, true);
+            $productId = $decoded['productId'];
+            $quantity = $decoded['quantity'];
+            $_SESSION["aaa"]=$productId;
+
+            $this->carRepository->addToCart($_SESSION["user_ID"],$productId,$quantity);
+
+            
+            http_response_code(200);
         }
-        print("aaa");
+
+        
     }
 
     public function order($city,$street, $postalCode, $sum){

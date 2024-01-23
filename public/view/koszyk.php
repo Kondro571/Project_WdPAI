@@ -27,7 +27,7 @@
                 <div class="mobile-icon" onclick="toggleMenu()">&#9776;</div>
                 <ol class="menu-list">
                     <li class="main-page-link"><a href="#">Strona główna</a></li>
-                    <li><a href="#">Zabawki</a>
+                    <li><a href="zabawki">Zabawki</a>
                         <ul class="sub-menu">
                             <li><a href="#">pluszaki</a></li>
                             <li><a href="#">karciane</a></li>
@@ -95,20 +95,24 @@
     </div>
         
         <div class="cart-and-summary">
-        <?php 
-            $suma=0;
-            foreach ($produkty as $produkt):
-        ?>
+
             <aside class="cart">
                 <h2>Produkt</h2>
+                <?php 
+                    $suma=0;
+                    foreach ($produkty as $produkt):
+                ?>
                 <div class="product">
                     <p id="product">Produkt:</p>
 
                     <?php foreach ($produkt->getImages() as $z): ?>
                             
-                            <img src="public/img/produkty/<?php echo $z; ?>" alt="<?php echo $produkt->getName(); ?>">
-             
-                    <?php endforeach; ?>
+                        
+         
+                        <?php 
+                        $im=$z;
+                        endforeach; ?>
+                            <img src="public/img/produkty/<?php echo $im; ?>" alt="<?php echo $produkt->getName(); ?>">
 
                     <div class="product-info">
                         <p><?php echo $produkt->getName();  ?></p>
@@ -118,15 +122,16 @@
                     </div>
                     
                 </div>
-            </aside>
-            <?php 
-                $suma=$suma+$produkt->getPrice()*$profust->getQuantity();
+                <?php 
+                $suma=$suma+$produkt->getPrice()*$produkt->getQuantity();
                 $dostawa =50-$suma;
                 if($dostawa<0){
                     $dostawa = 0;
                 }
                 endforeach; 
             ?>
+            </aside>
+        
             <!-- Prawa strona z podsumowaniem -->
             <div class="summary">
                 <div class="summary-box">

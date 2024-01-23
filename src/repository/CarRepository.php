@@ -10,7 +10,7 @@ class CarRepository extends Repository {
     public function getCar($suer_ID) :array{
 
         $stmt = $this->database->connect()->prepare('
-                SELECT 
+            SELECT 
                 p.id, 
                 p.nazwa, 
                 p.producent, 
@@ -22,7 +22,7 @@ class CarRepository extends Repository {
             LEFT JOIN 
                 zdjecia_produktow z ON p.id = z.produkt_id
             LEFT JOIN
-                koszyk k ON p.id = pk.produkt_id
+                koszyk k ON p.id = k.produkt_id
             WHERE 
                 k.uzytkownik_id = :user_id;
 
@@ -37,10 +37,11 @@ class CarRepository extends Repository {
             $productId = $productData['id'];
 
             $existingProduct = null;
-            foreach ($products as $existingProduct) {
-                if ($existingProduct->getId() == $productId) {
+            for ($i = 0; $i < count($products); $i++) {
+                if ($products[$i]->getId() == $productId) {
+                    $existingProduct = $products[$i];
                     break;
-                }
+            }
             }
 
             if (!$existingProduct) {
@@ -66,11 +67,11 @@ class CarRepository extends Repository {
     }
 
     public function addToCart($userId,$productId, $quantity) {
-
+        
         $stmt = $this->database->connect()->prepare('
-            INSERT INTO koszyk (uzytkownik_id, mprodukt_id, ilosc) VALUES (:uzytkownik_id, :product_id, :quantity);
+            INSERT INTO koszyk (uzytkownik_id, produkt_id, ilosc) VALUES (:uzytkownik_id, :product_id, :quantity);
         ');
-        $stmt->bindParam(':product_id', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':uzytkownik_id', $userId, PDO::PARAM_INT);
         $stmt->bindParam(':product_id', $productId, PDO::PARAM_INT);
         $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
         $stmt->execute();

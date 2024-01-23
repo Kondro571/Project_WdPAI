@@ -16,13 +16,14 @@ class ProfilController extends AppController{
 
     public function profil(){
         $info=$this->userRepository->getUserDetailsId($_SESSION["user_ID"]);
-        $this-> render("profil",["info"=>$info]);
+        echo $info->getName();
+        $this-> render("profil",["user"=>$info]);
 
     }
     public function edytuj_profil(){
         if (!$this->isPost()) {
             $info=$this->userRepository->getUserDetailsId($_SESSION["user_ID"]);
-            $this-> render("edytuj_profil",["info"=>$info]);
+            $this-> render("edytuj_profil",["user"=>$info]);
         }else{
                 $dataToSave = [
                     'email' => $_POST['email'],
@@ -38,7 +39,8 @@ class ProfilController extends AppController{
 
 
             $this->userRepository->updateUser($_SESSION["user_ID"], $dataToSave);
-            $this->render("profil");
+            $info=$this->userRepository->getUserDetailsId($_SESSION["user_ID"]);
+            $this->render("profil",["user"=>$info]);
         }
 
     }

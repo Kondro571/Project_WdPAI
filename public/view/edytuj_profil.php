@@ -81,7 +81,7 @@
         <div class="edit-data">
             
             <form action="edytuj_profil" method="post">
-            <?php foreach ($info as $user): ?>
+            <?php  ?>
 
                 <!-- Dane osobowe -->
                 <div class="personal-info">
@@ -116,7 +116,6 @@
         
                 
                 <input type="submit" value="Zapisz Zmiany">
-            <?php endforeach;?>
             </form>
         </div>
         
