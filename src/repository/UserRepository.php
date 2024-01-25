@@ -142,7 +142,7 @@ class UserRepository extends Repository {
                 $result[$userId] = [
                     'user_id' => $row['user_id'],
                     'user_email' => $row['user_email'],
-                    'user_is_admin' => $row['user_is_admin'] === 't', // Zamień 't' na true, 'f' na false
+                    'user_is_admin' => $row['user_is_admin'] === 't',
                     'orders' => []
                 ];
             }
@@ -169,9 +169,7 @@ class UserRepository extends Repository {
     
 
     private function updateExistingDetails(int $userId, array $info) {
-        // Tutaj dodaj kod aktualizacji szczegółów użytkownika w bazie danych
 
-            // Przygotuj zapytanie UPDATE
             $updateQuery = "UPDATE szcegoly_uzytkownika 
                             SET imie = :name, 
                                 nazwisko = :surname, 
@@ -182,10 +180,8 @@ class UserRepository extends Repository {
                                 kod_pocztowy = :postcode 
                             WHERE uzytkownik_id = :user_id";
 
-            // Utwórz przygotowane zapytanie
             $stmt = $this->database->connect()->prepare($updateQuery);
 
-            // Bindeuj parametry
             $stmt->bindParam(':name', $info['name']);
             $stmt->bindParam(':surname', $info['surname']);
             $stmt->bindParam(':phone', $info['phone']);
@@ -195,7 +191,6 @@ class UserRepository extends Repository {
             $stmt->bindParam(':postcode', $info['postcode']);
             $stmt->bindParam(':user_id', $userId);
 
-            // Wykonaj zapytanie
             $stmt->execute();
     }
     

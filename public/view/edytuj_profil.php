@@ -101,7 +101,6 @@
             <form action="edytuj_profil" method="post">
             <?php  ?>
 
-                <!-- Dane osobowe -->
                 <div class="personal-info">
                     <label for="imie">Imię:</label>
                     <input type="text" name="imie" placeholder="Imię" value="<?php echo $user->getName(); ?>" required><br>

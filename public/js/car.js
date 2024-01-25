@@ -28,7 +28,6 @@ $(document).ready(function() {
             var total=data["total"]
             $(this).closest(".product").remove();
 
-            // Aktualizacja zawartości elementów span
             $(".wartosc").text(total + " zł");
             var dostawa = 50.00 - total;
             if (dostawa < 0) {

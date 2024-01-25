@@ -29,11 +29,7 @@ class CarController extends AppController {
             $this-> render("order",["user"=>$info,"total"=>$total["calculateCartTotals"]]);
         }else{
                 
-                // 'email' => $_POST['email'],
-                // 'name' => $_POST['imie'],
-                // 'surname' => $_POST['nazwisko'],
-                // 'phone'=> $_POST['telefon'],
-                // 'number' => $_POST['numer'],
+     
                 $city= $_POST['miasto'];
                 $street= $_POST['ulica'];
                 

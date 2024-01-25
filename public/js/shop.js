@@ -62,7 +62,6 @@ $(document).ready(function () {
         });
     }
 
-    // Nowa funkcja z Fetch API
     function addToCartFetch(productId, quantity) {
         fetch('add_to_cart', {
             method: 'POST',
@@ -79,7 +78,6 @@ $(document).ready(function () {
                 throw new Error('Network response was not ok');
             }
     
-            // Sprawdź status HTTP 200, a resztę obsłużesz jako pustą odpowiedź
             if (response.status === 200) {
                 const cartItemCountElement = $('.cart-item-count');
                 const currentCount = parseInt(cartItemCountElement.text()) || 0;

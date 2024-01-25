@@ -37,8 +37,7 @@ $(document).ready(function () {
         var quantity = quantityInput.prop('value');
         console.log(quantity);
 
-        // Tutaj możesz wywołać funkcję lub AJAX, aby dodać produkt do koszyka z określoną ilością
-        // Przykład: addToCart(productId, quantity);
+
         addToCartFetch(productId, quantity);
         console.log("Dodano do koszyka: Produkt ID = " + productId + ", Ilość = " + quantity);
     });
@@ -63,7 +62,6 @@ $(document).ready(function () {
         });
     }
 
-    // Nowa funkcja z Fetch API
     function addToCartFetch(productId, quantity) {
         fetch('add_to_cart', {
             method: 'POST',

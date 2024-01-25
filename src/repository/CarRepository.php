@@ -106,43 +106,34 @@ class CarRepository extends Repository {
             $db = $this->database->connect();
             $db->beginTransaction();
     
-            // Wstawienie danych zamówienia do tabeli 'zamowienia'
             $orderSql = "INSERT INTO zamowienia (data_,uzytkownik_id,miejscowosc, ulica, kod_pocztowy,data_platnosci,kwota,status_) VALUES (?,?,?,?,?,?, ?, ?)";
             $orderStmt = $db->prepare($orderSql);
             $date=date('Y-m-d H:i:s');
             $orderStmt->execute([$date,$userId,$city, $street, $postalCode,$date,$sum,"do zapłaty"]);
     
-            // Pobranie ID ostatnio wstawionego zamówienia
             $orderId = $db->lastInsertId();
     
-            // Pobranie produktów z koszyka dla użytkownika
             $cartSql = "SELECT produkt_id, ilosc FROM koszyk WHERE uzytkownik_id = ?";
             $cartStmt = $db->prepare($cartSql);
             $cartStmt->execute([$userId]);
             $cartResult = $cartStmt->fetchAll(PDO::FETCH_ASSOC);
     
-            // Wstawienie danych szczegółów zamówienia do tabeli 'szczegoly_zamowien'
             foreach ($cartResult as $row) {
                 $productSql = "INSERT INTO szczegoly_zamowien (zamowienie_id, produkt_id, ilosc) VALUES (?, ?, ?)";
                 $productStmt = $db->prepare($productSql);
                 $productStmt->execute([$orderId, $row['produkt_id'], $row['ilosc']]);
             }
     
-            // Usunięcie produktów z koszyka po złożeniu zamówienia
             $deleteCartSql = "DELETE FROM koszyk WHERE uzytkownik_id = ?";
             $deleteCartStmt = $db->prepare($deleteCartSql);
             $deleteCartStmt->execute([$userId]);
     
-            // Zatwierdzenie transakcji
             $db->commit();
     
-            // Zwróć odpowiedź o sukcesie
             return array('status' => 'success', 'message' => 'Zamówienie zostało dodane do bazy danych');
         } catch (PDOException $e) {
-            // W razie błędu cofnij transakcję
             $db->rollBack();
     
-            // Zwróć odpowiedź o błędzie
             return array('status' => 'error', 'message' => 'Wystąpił błąd podczas dodawania zamówienia do bazy danych: ' . $e->getMessage());
         }
     }

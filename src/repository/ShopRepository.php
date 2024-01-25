@@ -91,7 +91,6 @@ class ShopRepository extends Repository {
         foreach ($productsData as $productData) {
             $productId = $productData['id'];
 
-            // Sprawdź, czy produkt już istnieje w tablicy $products
             $existingProduct = null;
             for ($i = 0; $i < count($products); $i++) {
                 if ($products[$i]->getId() == $productId) {
@@ -114,7 +113,6 @@ class ShopRepository extends Repository {
                 array_push($products,$existingProduct);
             }
         
-            // Dodaj ścieżkę do zdjęcia do odpowiedniego produktu
             if ($productData['sciezka_do_zdjecia']) {
                 $existingProduct->addPhoto($productData['sciezka_do_zdjecia']);
             }
@@ -147,7 +145,6 @@ class ShopRepository extends Repository {
         foreach ($productsData as $productData) {
             $productId = $productData['produkt_id'];
 
-            // Sprawdź, czy produkt już istnieje w tablicy $products
             $existingProduct = null;
          for ($i = 0; $i < count($notebooks); $i++) {
                 if ($notebooks[$i]->getId() == $productId) {
@@ -156,7 +153,6 @@ class ShopRepository extends Repository {
                 }
             }
 
-            // Jeśli produkt nie istnieje, dodaj nowy produkt do tablicy $products
             if (!$existingProduct) {
                 $existingProduct = new Notebook(
                     $productId,
@@ -172,7 +168,6 @@ class ShopRepository extends Repository {
                 $notebooks[] = $existingProduct;
             }
 
-            // Dodaj ścieżki do zdjęć do odpowiedniego produktu
             if ($productData['zdjecie_sciezka']) {
                 $existingProduct->addPhoto($productData['zdjecie_sciezka']);
             }
@@ -198,7 +193,6 @@ class ShopRepository extends Repository {
         foreach ($productsData as $productData) {
             $productId = $productData['produkt_id'];
 
-            // Sprawdź, czy produkt już istnieje w tablicy $products
             $existingProduct = null;
             for ($i = 0; $i < count($pens); $i++) {
                 if ($pens[$i]->getId() == $productId) {
@@ -207,7 +201,6 @@ class ShopRepository extends Repository {
                 }
             }
 
-            // Jeśli produkt nie istnieje, dodaj nowy produkt do tablicy $products
             if (!$existingProduct) {
                 $existingProduct = new Pen(
                     $productId,
@@ -221,7 +214,6 @@ class ShopRepository extends Repository {
                 $pens[] = $existingProduct;
             }
 
-            // Dodaj ścieżki do zdjęć do odpowiedniego produktu
             if ($productData['zdjecie_sciezka']) {
                 $existingProduct->addPhoto($productData['zdjecie_sciezka']);
             }
