@@ -1,5 +1,5 @@
-# Nazwa Twojego Projektu
-Sklep internetowy Filolek
+# Sklep internetowy Filolek
+autor: Konrad Tatomir
 
 Sklep z przyboerami szkolnymi, zabawkami i innymi rzeczami codziennego urztku.
 
@@ -63,7 +63,7 @@ A web server (e.g., Apache, NGINX)
 - Funkcje admina: Przeglądaj użytkowników i ich zamówienia.
 
 ```bash
-git clone https://github.com/
-cd Sklep internetowy Filolek
+git clone https://github.com/Kondro571/Project_WdPAI-Fijolek.git
+cd Project_WdPAI-Fijolek
 
 
