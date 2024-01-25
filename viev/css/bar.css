@@ -184,6 +184,17 @@ color:rgb(0, 0, 0);
     text-transform: uppercase;
 }
 
+.icons .cart-item-count {
+    position: absolute;
+    top: 33px;
+    right: 85px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
 /* -----search bar----------------------------------------- */
 .search-bar{
     display: flex;
@@ -257,63 +268,3 @@ main {
     align-items: center;
 }
 
-
-.edit-data form {
-    
-    margin: 20px 60px;
-}
-
-.edit-data label {
-    display: block;
-    margin-bottom: 8px;
-}
-
-.edit-data input {
-    width: 250px;
-    padding: 8px;
-    margin-bottom: 12px;
-    box-sizing: border-box;
-}
-
-.edit-data input[type="submit"] {
-    margin-left: 300px;
-    background-color:#000000;
-    color: #fff;
-    cursor: pointer;
-}
-
-.edit-data input[type="submit"]:hover {
-    background-color:#474747;
-}
-
-.edit-data{
-    width: 800px;
-
-    overflow: hidden;
-}
-
-.personal-info{
-    width: 300px;
-    float:left; /* add this */
-
-}
-.address-info{
-
-}
-
-@media only screen and (max-width: 600px) {
-    .personal-info{
-        float:none;
-    
-    }
-    .edit-data input[type="submit"] {
-        margin-left: 0px;
-
-    }
-    .edit-data{
-        width: auto;
-    
-  
-    }
-
-}

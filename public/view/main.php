@@ -11,13 +11,27 @@
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <script src="public/js/shop.js"></script>
+        <script src="public/js/search.js"></script>
+        <style>
+        #suggestionsList {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+        #suggestionsList li {
+            cursor: pointer;
+            padding: 5px;
+            border: 1px solid #ccc;
+            width:40px;
+        }
+    </style>
 
     </head>
     <body>
         
-        <header>
+    <header>
             <div class="logo">
-                <a href="project"> <img src="public/img/logo.png" alt="Logo" height="70"></a>
+                <a href="main"> <img src="public/img/logo.png" alt="Logo" height="70"></a>
             </div>
             <nav class="category">
                 <div class="mobile-icon" onclick="toggleMenu()">&#9776;</div>
@@ -51,10 +65,12 @@
                     <div class="search-bar">
                         <img src="public/img/lupa.png">
                         <input type="text" placeholder="SZUKAJ">
+                        <ul id="suggestionsList"></ul>
                     </div>
                     <a href="koszyk">
                         <img src="public/img/sbag.png" alt="Kosz" height="50">
                         <span class="info-text">Koszyk</span>
+                        <span class="cart-item-count"><?php echo $_SESSION["car"] ?></span>
                     </a>
                     <div class="user-menu">
                         <?php 

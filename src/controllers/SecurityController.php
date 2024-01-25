@@ -59,6 +59,9 @@ class SecurityController extends AppController{
         if ($password !== $repeatPassword) {
             return $this->render("register", ["messages" => ["Hasła są różne od siebie"]]);
         }
+        if(strlen($password) <8) {
+            return $this->render("register", ["messages" => ["Hasła za krotkie"]]);
+        }
     
         $existingUser = $userRepository->getUser($email);
         if ($existingUser !== null) {

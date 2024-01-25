@@ -57,7 +57,7 @@
                     <a href="koszyk">
                         <img src="public/img/sbag.png" alt="Kosz" height="50">
                         <span class="info-text">Koszyk</span>
-                        <span class="cart-item-count"><?php echo $_SESSION["car"] ?></span>
+                        <!-- <span class="cart-item-count"><?php echo $_SESSION["car"] ?></span> -->
                     </a>
                     <div class="user-menu">
                         <?php 
@@ -124,7 +124,7 @@
                             <?php if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {?>
                                 <button class="add-to-cart-button" data-product-id="<?php echo $produkt->getId(); ?>">Dodaj do koszyka</button>
                             <?php }else{?>
-                                <button class="login-first" href="login">Zaloguj sie aby dodać do koszyka</button>
+                                <a href="login"><button class="login-first" href="login">Zaloguj sie aby dodać do koszyka</button></a>
                             <?php }?>
 
                         </div>

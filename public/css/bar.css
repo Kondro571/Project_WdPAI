@@ -186,8 +186,8 @@ color:rgb(0, 0, 0);
 
 .icons .cart-item-count {
     position: absolute;
-    top: -5px;
-    right: -5px;
+    top: 33px;
+    right: 105px;
     background-color: red;
     color: white;
     border-radius: 50%;
@@ -212,6 +212,7 @@ color:rgb(0, 0, 0);
     background-color: #000;
     border: none;
     border-bottom:3px solid #ffffff; 
+    color: #ffffff;
     padding: 7px;
 
  

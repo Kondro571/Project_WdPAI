@@ -187,20 +187,9 @@ class ShopRepository extends Repository {
     public function getPens($subCatehory="") :array{
         $stmt = $this->database->connect()->query('
             SELECT 
-                p.id AS produkt_id, 
-                p.nazwa AS produkt_nazwa, 
-                p.producent AS produkt_producent, 
-                p.cena AS produkt_cena, 
-                p.ilosc AS produkt_ilosc, 
-                d.kolor AS kolor,
-                zd.sciezka_do_zdjecia AS zdjecie_sciezka
-            FROM 
-                produkty p
-            LEFT JOIN 
-                dlugopisy d ON p.id = d.produkt_id
-            LEFT JOIN
-                zdjecia_produktow zd ON p.id = zd.produkt_id
-            WHERE d.id IS NOT NULL
+            *
+            FROM
+            widok_produkty_dlugopisy
         ');
     
         $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
