@@ -5,6 +5,8 @@ require_once "src/controllers/ShopController.php";
 require_once "src/controllers/CarController.php";
 
 require_once "src/controllers/ProfilController.php";
+require_once "src/controllers/AdminController.php";
+
 
 
 

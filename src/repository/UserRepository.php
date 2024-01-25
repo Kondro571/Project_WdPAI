@@ -100,6 +100,73 @@ class UserRepository extends Repository {
             $this->createNewDetails($userId, $info);
         }
     }
+    public function carCount($userId){
+        $stmt=$this->database->connect()->prepare("SELECT COUNT(*) FROM koszyk WHERE uzytkownik_id = :usre_id");
+        $stmt->bindParam(':usre_id', $userId, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $count= $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $count['count'];
+    }
+
+    public function getUsersWithOrders() {
+        $stmt = $this->database->connect()->query('
+            SELECT 
+                u.id AS user_id,
+                u.email AS user_email,
+                u.isadmin AS user_is_admin,
+                z.id AS order_id,
+                z.data_ AS order_date,
+                z.miejscowosc AS order_location,
+                z.ulica AS order_street,
+                z.kod_pocztowy AS order_postal_code,
+                z.data_platnosci AS order_payment_date,
+                z.kwota AS order_amount,
+                z.status_ AS order_status,
+                s.produkt_id AS product_id,
+                s.ilosc AS product_quantity
+            FROM 
+                uzytkownik u
+            LEFT JOIN 
+                zamowienia z ON u.id = z.uzytkownik_id
+            LEFT JOIN 
+                szczegoly_zamowien s ON z.id = s.zamowienie_id
+        ');
+    
+        $result = [];
+    
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $userId = $row['user_id'];
+            if (!isset($result[$userId])) {
+                $result[$userId] = [
+                    'user_id' => $row['user_id'],
+                    'user_email' => $row['user_email'],
+                    'user_is_admin' => $row['user_is_admin'] === 't', // Zamień 't' na true, 'f' na false
+                    'orders' => []
+                ];
+            }
+    
+            if (!empty($row['order_id'])) {
+                $result[$userId]['orders'][] = [
+                    'order_id' => $row['order_id'],
+                    'order_date' => $row['order_date'],
+                    'order_location' => $row['order_location'],
+                    'order_street' => $row['order_street'],
+                    'order_postal_code' => $row['order_postal_code'],
+                    'order_payment_date' => $row['order_payment_date'],
+                    'order_amount' => $row['order_amount'],
+                    'order_status' => $row['order_status'],
+                    'product_id' => $row['product_id'],
+                    'product_quantity' => $row['product_quantity']
+                ];
+            }
+        }
+    
+        return $result;
+    }
+    
+    
 
     private function updateExistingDetails(int $userId, array $info) {
         // Tutaj dodaj kod aktualizacji szczegółów użytkownika w bazie danych
@@ -155,5 +222,6 @@ class UserRepository extends Repository {
         }
     }
 
-    
+
+
 }

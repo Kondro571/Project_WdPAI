@@ -1,0 +1,28 @@
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+}
+th {
+    background-color: #f2f2f2;
+}
+.users-info {
+    width: 800px;
+    margin-left:50px ;
+
+}
+
+@media only screen and (max-width: 705px) {
+    .users-info {
+        width: auto;
+
+        margin-left:10px;
+    }
+
+
+}

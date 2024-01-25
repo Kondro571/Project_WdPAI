@@ -134,11 +134,12 @@
             <!-- Prawa strona z podsumowaniem -->
             <div class="summary">
                 <div class="summary-box">
+                
                     <h2>Podsumowanie</h2>
                     <p><span>Wartość produktów:</span> <span class="right wartosc"><?php echo $suma;  ?> zł</span></p>
                     <p><span>Dostawa od:</span> <span class="right dostawa" ><?php echo $dostawa  ?> zł</span></p>
                     <p><span>Do zapłaty:</span> <span class="right lacznie"><?php echo $suma+$dostawa ?> zł</span></p>
-                    <a href="order"><button href="order" class="checkout-button">Przejdź do kasy</button></a>
+                    <a <?php if($_SESSION["car"]>0) {echo 'href="order"';}?>><button href="order" class="checkout-button">Przejdź do kasy</button></a>
                 </div>
             </div>
         </div>

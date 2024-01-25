@@ -81,7 +81,13 @@ $(document).ready(function () {
     
             // Sprawdź status HTTP 200, a resztę obsłużesz jako pustą odpowiedź
             if (response.status === 200) {
-                console.log('Dodano do koszyka: Produkt ID = ' + productId + ', Ilość = ' + quantity);
+                const cartItemCountElement = $('.cart-item-count');
+                const currentCount = parseInt(cartItemCountElement.text()) || 0;
+                const newCount = currentCount + 1;
+                
+                cartItemCountElement.text(newCount);
+
+                console.log('Ddo koszyka: Produkt ID = ' + productId + ', Ilość = ' + quantity);
             }
         })
         .catch(error => {

@@ -11,7 +11,7 @@
         
     </head>
     <body>
-        <div class="logo"><a href="project"><img name="google_icon" src="public/img/logo2.png"></a></div>
+        <div class="logo"><a href="main"><img name="google_icon" src="public/img/logo2.png"></a></div>
         
         <div class="login-container">
 
@@ -25,10 +25,11 @@
                     }
                     ?>
                 </div>
-                <input type="email" placeholder="Email" name="email" required>
+                <input type="email" placeholder="Email" name="email" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$">
                 <input type="password" placeholder="Hasło" name="password" required>
                 <button type="submit" class="confirm-button">zaloguj się</button>
-            
+    
+ 
                 <a href="login">zresetuj hasło</a>
 
                 <a href="register" class="create-account-button">

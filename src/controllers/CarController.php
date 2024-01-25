@@ -23,9 +23,30 @@ class CarController extends AppController {
 
     }
     public function order(){
-        $info=$this->userRepository->getUserDetailsId($_SESSION["user_ID"]);
-        $total=$this->carRepository->getTotal($_SESSION["user_ID"]);
-        $this-> render("order",["user"=>$info,"total"=>$total["calculateCartTotals"]]);
+        if (!$this->isPost()) {
+            $info=$this->userRepository->getUserDetailsId($_SESSION["user_ID"]);
+            $total=$this->carRepository->getTotal($_SESSION["user_ID"]);
+            $this-> render("order",["user"=>$info,"total"=>$total["calculateCartTotals"]]);
+        }else{
+                
+                // 'email' => $_POST['email'],
+                // 'name' => $_POST['imie'],
+                // 'surname' => $_POST['nazwisko'],
+                // 'phone'=> $_POST['telefon'],
+                // 'number' => $_POST['numer'],
+                $city= $_POST['miasto'];
+                $street= $_POST['ulica'];
+                
+                $postalCode = $_POST['kod_pocztowy'];
+
+             
+                    $total=$this->carRepository->getTotal($_SESSION["user_ID"]);
+        $this->carRepository->addOrder($_SESSION["user_ID"],$city,$street, $postalCode, $total["calculateCartTotals"]);
+
+        $products = $this->carRepository->getCar( $_SESSION['user_ID']);
+        $_SESSION["car"]=0;
+        $this-> render("koszyk",["produkty" => $products]);
+        }
 
     }
 
@@ -41,8 +62,9 @@ class CarController extends AppController {
             $quantity = $decoded['quantity'];
 
             $this->carRepository->addToCart($_SESSION["user_ID"],$productId,$quantity);
+            $amount = $this->carRepository->carCount($_SESSION["user_ID"]);
+            $_SESSION["car"]= $amount;
 
-            
             http_response_code(200);
         }
 
@@ -78,28 +100,7 @@ class CarController extends AppController {
 
     public function add_order(){
 
-        if (!$this->isPost()) {
-            $info=$this->userRepository->getUserDetailsId($_SESSION["user_ID"]);
-            $total=$this->carRepository->getTotal($_SESSION["user_ID"]);
-            $this-> render("order",["user"=>$info,"total"=>$total["calculateCartTotals"]]);
-        }else{
-                
-                // 'email' => $_POST['email'],
-                // 'name' => $_POST['imie'],
-                // 'surname' => $_POST['nazwisko'],
-                // 'phone'=> $_POST['telefon'],
-                // 'number' => $_POST['numer'],
-                $city= $_POST['miasto'];
-                $street= $_POST['ulica'];
-                
-                $postalCode = $_POST['kod_pocztowy'];
-
-             
-                    $total=$this->carRepository->getTotal($_SESSION["user_ID"]);
-        $this->carRepository->addOrder($_SESSION["user_ID"],$city,$street, $postalCode, $total["calculateCartTotals"]);
-        print("order");
-
-        }
+        
     }
     
 

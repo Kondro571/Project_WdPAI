@@ -38,11 +38,12 @@ class SecurityController extends AppController{
         $_SESSION['user_ID'] = $user->getId();
         $_SESSION['user_email'] = $user->getEmail();
         $_SESSION['isAdmin'] = $user->isAdmin();
-        // Tutaj masz pewność, że e-mail i hasło są poprawne
-        #$url = "http://$_SERVER[HTTP_HOST]";
-        #header("Location:{$url}/project");
-        return $this->render('project');
+        $amount = $this->userRepository->carCount($_SESSION["user_ID"]);
+        $_SESSION["car"]= $amount;
+
+        header("Location: /main"); 
     }
+    
     
     public function register() {
         $userRepository = new UserRepository();
@@ -59,13 +60,11 @@ class SecurityController extends AppController{
             return $this->render("register", ["messages" => ["Hasła są różne od siebie"]]);
         }
     
-        // Sprawdź, czy użytkownik o danym e-mailu już istnieje
         $existingUser = $userRepository->getUser($email);
         if ($existingUser !== null) {
             return $this->render("register", ["messages" => ["Użytkownik o podanym e-mailu już istnieje"]]);
         }
     
-        // Twórz nowego użytkownika i dodaj do bazy danych
         $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
         $user = new User($email, $hashedPassword, 0);
         $userRepository->addUser($user);

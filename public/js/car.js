@@ -37,6 +37,12 @@ $(document).ready(function() {
             $(".dostawa").text(dostawa + " zł");
             $(".lacznie").text(Number(dostawa) + Number(total)+ " zł");
 
+            const cartItemCountElement = $('.cart-item-count');
+            const currentCount = parseInt(cartItemCountElement.text()) || 0;
+            const newCount = currentCount - 1;
+            
+            cartItemCountElement.text(newCount);
+
 
         })
         .catch(error => {

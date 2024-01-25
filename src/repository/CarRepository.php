@@ -146,6 +146,16 @@ class CarRepository extends Repository {
             return array('status' => 'error', 'message' => 'Wystąpił błąd podczas dodawania zamówienia do bazy danych: ' . $e->getMessage());
         }
     }
+
+    public function carCount($userId){
+        $stmt=$this->database->connect()->prepare("SELECT COUNT(*) FROM koszyk WHERE uzytkownik_id = :usre_id");
+        $stmt->bindParam(':usre_id', $userId, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $count= $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $count['count'];
+    }
     
         
 }

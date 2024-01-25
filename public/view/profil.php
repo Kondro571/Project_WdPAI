@@ -84,7 +84,7 @@
                     <h3>Imię i Nazwisko</h3>
                 </div>
                 <div class="user-data">
-                <?php echo $user->getName() ,$user->getSurname() ?>
+                <?php echo $user->getName()," ",$user->getSurname() ?>
                 </div>
             </div>
       
@@ -114,7 +114,7 @@
                 </div>
             </div>
             <div class="edit">
-                <a class="edit-link" target="__blank" href="edytuj_profil">Edytuj dane</a>
+                <a class="edit-link" href="edytuj_profil">Edytuj dane</a>
             </div>
             <?php }?>
         </div>

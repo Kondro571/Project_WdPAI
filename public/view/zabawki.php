@@ -6,6 +6,8 @@
         <meta name="description" content="My bisness">
         <meta name="author" content="Konrad Tatomir">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="public/css/bar.css">
+
         <link rel="stylesheet" href="public/css/produkty.css">
         <link rel="icon" type="image/x-icon" href="public/img/favicon.ico">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -17,30 +19,29 @@
         
         <header>
             <div class="logo">
-                <a href="project"> <img src="public/img/logo.png" alt="Logo" height="70"></a>
+                <a href="main"> <img src="public/img/logo.png" alt="Logo" height="70"></a>
             </div>
             <nav class="category">
                 <div class="mobile-icon" onclick="toggleMenu()">&#9776;</div>
                 <ol class="menu-list">
                     <li class="main-page-link"><a href="#">Strona główna</a></li>
-                    <li><a href="#">Zabawki</a>
+                    <li><a href="zabawki">Zabawki</a>
                         <ul class="sub-menu">
-                            <li><a href="#">pluszaki</a></li>
-                            <li><a href="#">karciane</a></li>
-                            <li><a href="#">pole</a></li>
+                            <li><a href="pluszaki">pluszaki</a></li>
+                            <li><a href="karciane">karciane</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Papiernicze</a>
+                    <li><a href="papiernicze">Papiernicze</a>
                         <ul class="sub-menu">
-                            <li><a href="#">zeszyty</a></li>
-                            <li><a href="#">bloki</a></li>
-                            <li><a href="#">dlugopisy</a></li>
+                            <li><a href="zeszyty">zeszyty</a></li>
+                            <li><a href="bloki">bloki</a></li>
+                            <li><a href="dlugopisy">dlugopisy</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Inne</a>
+                    <li><a href="inne">Inne</a>
                         <ul class="sub-menu">
-                            <li><a href="#">bateria</a></li>
-                            <li><a href="#">kartki</a></li>
+                            <li><a href="baterie">bateria</a></li>
+                            <li><a href="kartki">kartki</a></li>
                         </ul>
                     </li>
                 </ol>
@@ -56,6 +57,7 @@
                     <a href="koszyk">
                         <img src="public/img/sbag.png" alt="Kosz" height="50">
                         <span class="info-text">Koszyk</span>
+                        <span class="cart-item-count"><?php echo $_SESSION["car"] ?></span>
                     </a>
                     <div class="user-menu">
                         <?php 
@@ -76,7 +78,7 @@
                         </a>
                         <?php if($_SESSION['loggedin'] == true) {?>
                             <?php if($_SESSION['isAdmin']) {?>
-                                <a href="#" class="conto-btn btn1">Admin staf</a>
+                                <a href="admin_staf" class="conto-btn btn1">Admin staf</a>
                                 <a href="logout" class="conto-btn btn2">Wyloguj się</a>
                             <?php }else{?>
                                 <a href="logout" class="conto-btn btn1">Wyloguj się</a>
@@ -91,6 +93,7 @@
     <div class="filter-menu">
 
     </div>
+    <main>
     <div class="product-container">
 
 
@@ -130,6 +133,7 @@
             <?php endforeach; ?>
 
     </div>
+    </main>
 
     </body>
 </html>

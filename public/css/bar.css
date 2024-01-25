@@ -184,6 +184,17 @@ color:rgb(0, 0, 0);
     text-transform: uppercase;
 }
 
+.icons .cart-item-count {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 5px 8px;
+    font-size: 12px;
+  }
+
 /* -----search bar----------------------------------------- */
 .search-bar{
     display: flex;

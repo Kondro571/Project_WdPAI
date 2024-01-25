@@ -9,6 +9,58 @@ require_once __DIR__.'/../moduls/Notebook.php';
 class ShopRepository extends Repository {
 
     
+    public function getAllProduct() :array{
+        $stmt = $this->database->connect()->query('
+            SELECT 
+                p.id, 
+                p.nazwa, 
+                p.producent, 
+                p.cena, 
+                p.ilosc, 
+                z.sciezka_do_zdjecia
+            FROM 
+                produkty p
+            LEFT JOIN 
+                zdjecia_produktow z ON p.id = z.produkt_id
+        ');
+  
+
+        $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        $products = [];
+        foreach ($productsData as $productData) {
+            $productId = $productData['id'];
+
+            $existingProduct = null;
+            for ($i = 0; $i < count($products); $i++) {
+                if ($products[$i]->getId() == $productId) {
+                    $existingProduct = $products[$i];
+                    break;
+                }
+            }
+            
+            if (!$existingProduct) {
+
+                $existingProduct = new Product(
+                    $productData['id'],
+                    $productData['nazwa'],
+                    $productData['producent'],
+                    $productData['cena'],
+                    $productData['ilosc'],
+                    []
+                );
+
+                array_push($products,$existingProduct);
+            }
+        
+            if ($productData['sciezka_do_zdjecia']) {
+                $existingProduct->addPhoto($productData['sciezka_do_zdjecia']);
+            }
+
+        }
+
+        return $products;
+
+    }
     public function getProduct($category,$subCatehory="") :array{
         $stmt = $this->database->connect()->prepare('
             SELECT 
@@ -191,5 +243,8 @@ class ShopRepository extends Repository {
 
 
     }
+
+
+
 
 }

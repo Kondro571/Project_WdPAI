@@ -87,16 +87,19 @@
                 <div class="personal-info">
                     <label for="imie">Imię:</label>
                     <input type="text" name="imie" placeholder="Imię" value="<?php echo $user->getName(); ?>" required><br>
-        
+
                     <label for="nazwisko">Nazwisko:</label>
                     <input type="text" name="nazwisko" placeholder="Nazwisko" value="<?php echo $user->getSurname(); ?>" required><br>
-        
+
                     <label for="email">Email:</label>
-                    <input type="text" name="email" placeholder="Email" value="<?php echo $_SESSION["user_email"]; ?>" required><br>
-                    
+                    <input type="email" name="email" placeholder="Email" value="<?php echo $_SESSION["user_email"]; ?>" required
+                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+                        title="Podaj poprawny adres email"><br>
+
                     <label for="telefon">Telefon:</label>
-                    <input type="text" name="telefon" placeholder="Telefon" value="<?php echo $user->getPhone(); ?>" required><br>
-        
+                    <input type="tel" name="telefon" placeholder="Telefon" value="<?php echo $user->getPhone(); ?>" required
+                        pattern="[0-9]{9}"
+                        title="Numer telefonu powinien składać się z 9 cyfr"><br>
                 </div>
         
                 <div class="address-info">
@@ -110,8 +113,9 @@
                     <input type="number" name="numer" placeholder="Nr" value="<?php echo $user->getNumber(); ?>" required><br>
                     
                     <label for="kod_pocztowy">Kod pocztowy:</label>
-                    <input type="text" name="kod_pocztowy" placeholder="Kod pocztowy" value="<?php echo $user->getPostCode(); ?>" required><br>
-                    
+                    <input type="text" name="kod_pocztowy" placeholder="Kod pocztowy" value="<?php echo $user->getPostCode(); ?>" required
+                            pattern="[0-9]{2}-[0-9]{3}"
+                            title="Podaj kod pocztowy w formie XX-XXX"><br>
                 </div>
         
                 

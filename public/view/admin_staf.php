@@ -7,7 +7,8 @@
         <meta name="author" content="Konrad Tatomir">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="public/css/bar.css">
-        <link rel="stylesheet" href="public/css/edytuj.css">
+        <link rel="stylesheet" href="public/css/admin.css">
+
         <link rel="icon" type="image/x-icon" href="public/img/favicon.ico">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -77,7 +78,7 @@
                         </a>
                         <?php if($_SESSION['loggedin'] == true) {?>
                             <?php if($_SESSION['isAdmin']) {?>
-                                <a href="#" class="conto-btn btn1">Admin staf</a>
+                                <a href="admin_staf" class="conto-btn btn1">Admin staf</a>
                                 <a href="logout" class="conto-btn btn2">Wyloguj się</a>
                             <?php }else{?>
                                 <a href="logout" class="conto-btn btn1">Wyloguj się</a>
@@ -89,57 +90,36 @@
             </div>
             
         </header>
+   
         <main>
-        <div class="edit-data">
-            
-            <form action="order" method="post">
-            <?php  ?>
+            <div class="users-info">
+                <?php
 
-                <!-- Dane osobowe -->
-                <div class="personal-info">
-                    <label for="imie">Imię:</label>
-                    <input type="text" name="imie" placeholder="Imię" value="<?php echo $user->getName(); ?>" required><br>
-        
-                    <label for="nazwisko">Nazwisko:</label>
-                    <input type="text" name="nazwisko" placeholder="Nazwisko" value="<?php echo $user->getSurname(); ?>" required><br>
-        
-                    <label for="email">Email:</label>
-                    <input type="text" name="email" placeholder="Email" value="<?php echo $_SESSION["user_email"]; ?>" required><br>
-                    
-                    <label for="telefon">Telefon:</label>
-                    <input type="text" name="telefon" placeholder="Telefon" value="<?php echo $user->getPhone(); ?>" required><br>
-        
-                </div>
-        
-                <div class="address-info">
-                    <label for="miasto">Miasto:</label>
-                    <input type="text" name="miasto" placeholder="Miasto" value="<?php echo $user->getCity(); ?>" required><br>
-                    
-                    <label for="ulica">Ulica:</label>
-                    <input type="text" name="ulica" placeholder="Ulica" value="<?php echo $user->getStreet(); ?>" required><br>
-                    
-                    <label for="numer">Nr domu/mieszkania:</label>
-                    <input type="number" name="numer" placeholder="Nr" value="<?php echo $user->getNumber(); ?>" required><br>
-                    
-                    <label for="kod_pocztowy">Kod pocztowy:</label>
-                    <input type="text" name="kod_pocztowy" placeholder="Kod pocztowy" value="<?php echo $user->getPostCode(); ?>" required><br>
-                    
-                </div>
-        
+            echo '<h1>Users and Orders</h1>';
+            foreach ($result as $userData) {
+                echo '<h2>Email: ' . $userData['user_email'] . '</h2>';
                 
-                
-                <div class="summary">
-                <div class="summary-box">
-                    <h2>Podsumowanie</h2>
-                    <p><span>Wartość produktów:</span> <span class="right wartosc"><?php $dostawa=50-$totoal; if( $total>50){ $dostatwa =0.00;} echo $total;  ?> zł</span></p>
-                    <p><span>Dostawa od:</span> <span class="right dostawa" ><?php echo $dostawa  ?> zł</span></p>
-                    <p><span>Do zapłaty:</span> <span class="right lacznie"><?php echo $total+$dostwawa ?> zł</span></p>
-                    <input type="submit" value="zapłać">
-                </div>
+                if (!empty($userData['orders'])) {
+                    echo '<table>';
+                    echo '<tr><th>data zlozenia</th><th>kwota</th><th>Status</th></tr>';
+                    $order=$userData['orders'][0];
+                        echo '<tr>';
+
+                        echo '<td>' . $order['order_date'] . '</td>';
+                        echo '<td>' . $order['order_amount'] . '</td>';
+                        echo '<td>' . $order['order_status'] . '</td>';
+                        echo '</tr>';
+                    
+                    echo '</table>';
+                } else {
+                    echo '<p>No orders found for this user.</p>';
+                }
+
+                echo '<hr>';
+            }
+            ?>
             </div>
-            </form>
-        </div>
-        
         </main>
+
     </body>
 </html>
