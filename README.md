@@ -15,9 +15,9 @@ Sklep z przyboerami szkolnymi, zabawkami i innymi rzeczami codziennego urztku.
 Projekt został zrealizowany przy użyciu następujących technologii:
 
 ## Instalacja
-Skopiuj repozyarium na swój serwer
-nalerzy użuć polecenia: docker-compose up
-natepnie połaczyć sie przez localhost w przegladarce
+- Skopiuj repozyarium na swój serwer
+- nalerzy użuć polecenia: docker-compose up
+- natepnie połaczyć sie przez localhost w przegladarce
 - localhost:8080 --strona
 - localhost:5050 --baza danych
 
@@ -65,5 +65,6 @@ A web server (e.g., Apache, NGINX)
 ```bash
 git clone https://github.com/
 cd Sklep internetowy Filolek
+autor Konrad Tatomir
 
 
