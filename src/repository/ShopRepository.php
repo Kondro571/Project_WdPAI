@@ -84,23 +84,9 @@ class ShopRepository extends Repository {
     public function getNotebooks($subCatehory="") :array{
         $stmt = $this->database->connect()->query('
             SELECT 
-                p.id AS produkt_id, 
-                p.nazwa AS produkt_nazwa, 
-                p.producent AS produkt_producent, 
-                p.cena AS produkt_cena, 
-                p.ilosc AS produkt_ilosc, 
-                z.id AS zeszyt_id,
-                z.rodzaj AS zeszyt_rodzaj,
-                z.ilosc_kartek AS zeszyt_ilosc_kartek,
-                z.rozmiar AS zeszyt_rozmiar,
-                zd.sciezka_do_zdjecia AS zdjecie_sciezka
-            FROM 
-                produkty p
-            LEFT JOIN 
-                zeszyty z ON p.id = z.produkt_id
-            LEFT JOIN
-                zdjecia_produktow zd ON p.id = zd.produkt_id
-            WHERE z.id IS NOT NULL
+                *
+            FROM
+            widok_zeszyty
         ');
     
         $productsData = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -154,10 +140,7 @@ class ShopRepository extends Repository {
                 p.producent AS produkt_producent, 
                 p.cena AS produkt_cena, 
                 p.ilosc AS produkt_ilosc, 
-                z.id AS zeszyt_id,
-                z.rodzaj AS zeszyt_rodzaj,
-                z.ilosc_kartek AS zeszyt_ilosc_kartek,
-                z.rozmiar AS zeszyt_rozmiar,
+                d.kolor AS kolor,
                 zd.sciezka_do_zdjecia AS zdjecie_sciezka
             FROM 
                 produkty p
@@ -185,15 +168,13 @@ class ShopRepository extends Repository {
 
             // Jeśli produkt nie istnieje, dodaj nowy produkt do tablicy $products
             if (!$existingProduct) {
-                $existingProduct = new Notebook(
+                $existingProduct = new Pen(
                     $productId,
                     $productData['produkt_nazwa'],
                     $productData['produkt_producent'],
                     $productData['produkt_cena'],
                     $productData['produkt_ilosc'],
-                    $productData['zeszyt_rodzaj'],
-                    $productData['zeszyt_ilosc_kartek'],
-                    $productData['zeszyt_rozmiar'],
+                    $productData['kolor'],
                     []
                 );
                 $pens[] = $existingProduct;

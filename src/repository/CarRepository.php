@@ -71,10 +71,34 @@ class CarRepository extends Repository {
         $stmt = $this->database->connect()->prepare('
             INSERT INTO koszyk (uzytkownik_id, produkt_id, ilosc) VALUES (:uzytkownik_id, :product_id, :quantity);
         ');
+        $_SESSION["a"]="aa";
         $stmt->bindParam(':uzytkownik_id', $userId, PDO::PARAM_INT);
         $stmt->bindParam(':product_id', $productId, PDO::PARAM_INT);
         $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);
         $stmt->execute();
+    }
+
+    public function removeFromCart($userId,$productId) {
+
+        $stmt=$this->database->connect()->prepare("DELETE FROM koszyk WHERE uzytkownik_id=:userId AND produkt_id=:productId");
+
+        
+
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':productId', $productId, PDO::PARAM_INT);
+        $stmt->execute();
+
+
+    }
+
+    public function getTotal($userId){
+        $stmt=$this->database->connect()->prepare('SELECT public."calculateCartTotals"(:userId)');
+
+        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        $stmt->execute();
+        $total = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $total;
+
     }
 
     public function addOrder($userId,$city,$street, $postalCode, $sum) {

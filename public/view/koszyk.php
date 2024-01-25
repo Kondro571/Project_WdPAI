@@ -12,7 +12,7 @@
         <link rel="icon" type="image/x-icon" href="public/img/favicon.ico">
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-        <script src="public/js/js1.js"></script>
+        <script src="public/js/car.js"></script>
 
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <!-- <script src="js/menu.js"></script> -->
@@ -99,34 +99,33 @@
             <aside class="cart">
                 <h2>Produkt</h2>
                 <?php 
-                    $suma=0;
+                    $suma=0.00;
                     foreach ($produkty as $produkt):
                 ?>
-                <div class="product">
+                <div class="product" data-product-id="<?php echo $produkt->getId(); ?>">
                     <p id="product">Produkt:</p>
 
                     <?php foreach ($produkt->getImages() as $z): ?>
-                            
-                        
-         
+
                         <?php 
                         $im=$z;
                         endforeach; ?>
                             <img src="public/img/produkty/<?php echo $im; ?>" alt="<?php echo $produkt->getName(); ?>">
 
                     <div class="product-info">
-                        <p><?php echo $produkt->getName();  ?></p>
-                        <p><?php echo $produkt->getPrice();  ?></p>
-                        <p><?php echo $produkt->getQuantity();  ?></p>
-                        <i class="fa fa-trash-o"></i>
+                        <p> <?php echo $produkt->getName();  ?> </p>
+                        <p>cena za sztukę:<?php echo $produkt->getPrice();  ?>zł</p>
+                        <p>ilośc: <?php echo $produkt->getQuantity();  ?></p>
+                        <a href="" class="delete_product_button"><i class="fa fa-trash-o"></i></a>
+
                     </div>
                     
                 </div>
                 <?php 
                 $suma=$suma+$produkt->getPrice()*$produkt->getQuantity();
-                $dostawa =50-$suma;
+                $dostawa =50.00-$suma;
                 if($dostawa<0){
-                    $dostawa = 0;
+                    $dostawa = 0.00;
                 }
                 endforeach; 
             ?>
@@ -136,10 +135,10 @@
             <div class="summary">
                 <div class="summary-box">
                     <h2>Podsumowanie</h2>
-                    <p><span>Wartość produktów:</span> <span class="right"><?php echo $suma;  ?></span></p>
-                    <p><span>Dostawa od:</span> <span class="right"><?php echo $dostawa  ?></span></p>
-                    <p><span>Do zapłaty:</span> <span class="right"><?php echo $suma+$dostawa ?></span></p>
-                    <button class="checkout-button">Przejdź do kasy</button>
+                    <p><span>Wartość produktów:</span> <span class="right wartosc"><?php echo $suma;  ?> zł</span></p>
+                    <p><span>Dostawa od:</span> <span class="right dostawa" ><?php echo $dostawa  ?> zł</span></p>
+                    <p><span>Do zapłaty:</span> <span class="right lacznie"><?php echo $suma+$dostawa ?> zł</span></p>
+                    <a href="order"><button href="order" class="checkout-button">Przejdź do kasy</button></a>
                 </div>
             </div>
         </div>

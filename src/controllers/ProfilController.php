@@ -16,7 +16,6 @@ class ProfilController extends AppController{
 
     public function profil(){
         $info=$this->userRepository->getUserDetailsId($_SESSION["user_ID"]);
-        echo $info->getName();
         $this-> render("profil",["user"=>$info]);
 
     }

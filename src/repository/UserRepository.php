@@ -24,15 +24,14 @@ class UserRepository extends Repository {
 
     public function addUser(User $user): void {
         $stat = $this->database->connect()->prepare('
-        INSERT INTO uzytkownik (email, haslo, poprzednie_haslo, isadmin)
-        VALUES (?,?,?,?);
+        INSERT INTO uzytkownik (email, haslo, poprzednie_haslo)
+        VALUES (?,?,?);
         ');
-        $isadmin= $user->isAdmin() ? 1:0;
+
         $stat->execute([
             $user->getEmail(),
             $user->getPassword(),
             $user->getPassword(),
-            $isadmin,
         ]);
 
     }

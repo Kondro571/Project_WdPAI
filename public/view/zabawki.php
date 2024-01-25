@@ -59,7 +59,7 @@
                     </a>
                     <div class="user-menu">
                         <?php 
-                        echo $_SESSION['aaa'];
+                        
                         if($_SESSION['loggedin'] == true) { 
                                 
                                 $link = "profil";
@@ -94,7 +94,7 @@
     <div class="product-container">
 
 
-            <?php echo count($produkty);
+            <?php 
             foreach ($produkty as $produkt):?>
             <div class="product">
                 <div class="product-img">

@@ -17,7 +17,13 @@ Routing::post('zabawki','ShopController');
 Routing::post('zeszyty','ShopController');
 Routing::post('dlugopisy','ShopController');
 Routing::post('koszyk','CarController');
+Routing::post('order','CarController');
+
 Routing::post('add_to_cart','CarController');
+Routing::post('remove_from_cart','CarController');
+
+
+
 
 Routing::post('profil','ProfilController');
 Routing::post('edytuj_profil','ProfilController');

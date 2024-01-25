@@ -4,7 +4,7 @@ CREATE TABLE uzytkownik (
     email VARCHAR(50) unique CHECK (email LIKE '%@%'),,
     haslo VARCHAR(50),
     poprzednie_haslo VARCHAR(50)
-    admin boolean
+    isadmin boolean
 );
 -- Tworzenie tabeli 'szcegoly_uzytkowinka'
 CREATE TABLE szcegoly_uzytkownika (
@@ -127,5 +127,15 @@ FROM information_schema.constraint_column_usage
 WHERE table_name = 'kategoria' AND column_name = 'nazwa';
 
 
-SELECT * FROM pg_indexes WHERE tablename = 'kategoria' AND indexname = 'kategoria_nazwa_key';
-ALTER TABLE kategoria DROP CONSTRAINT kategoria_nazwa_key;
+CREATE OR REPLACE FUNCTION set_default_admin()
+RETURNS TRIGGER AS $$
+BEGIN
+    NEW.isadmin := false;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER set_default_admin_trigger
+BEFORE INSERT ON uzytkownik
+FOR EACH ROW
+EXECUTE FUNCTION set_default_admin();
